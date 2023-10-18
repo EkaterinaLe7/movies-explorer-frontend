@@ -1,0 +1,134 @@
+.header {
+  background-color: #f3c1f8;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 74px;
+  padding: 0px 70px;
+}
+
+.header__logo {
+  width: 38px;
+  height: 38px;
+  background-image: url(../../images/logo.svg);
+}
+
+.header__logo:hover {
+    opacity: .7;
+}
+
+.header__link {
+  font-family: Inter;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+  text-align: right;
+  text-decoration: none;
+  color: #000;
+}
+
+.header__link:hover {
+    opacity: .7;
+}
+
+.header__link_type_button {
+  border-radius: 3px;
+  background-color: #000;
+  color: #fff;
+  padding: 8px 20px;
+}
+
+.header__links-container {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+}
+
+.header__logged-container {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+}
+
+.header__wrapper {
+  display: flex;
+  gap: 20px;
+}
+
+.header__link-account {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+}
+
+.header__link-img {
+  width: 30px;
+  height: 30px;
+  background-color: #000;
+  border-radius: 6px;
+  position: relative;
+}
+.header__link-img::before {
+  content: "";
+  background-image: url(../../images/accLogo2.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 12px;
+  height: 12px;
+  position: absolute;
+  z-index: 2;
+  top: 9px;
+  left: 9px;
+}
+
+.header__menu-btn {
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  .header__logged-container {
+    display: none;
+  }
+
+  .header__menu-btn {
+    display: block;
+    width: 44px;
+    height: 44px;
+    background-image: url(../../images/icon__COLOR_icon-main.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    background-color: transparent;
+    cursor: pointer;
+    border: none;
+  }
+
+  .header__menu-btn:hover {
+    opacity: .7;
+  }
+
+  .header {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .header {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  .header__link {
+    font-size: 10px;
+  }
+
+  .header__link_type_button {
+    padding: 5px 12px;
+  }
+
+  .header__menu-btn {
+    width: 40px;
+    height: 43px;
+  }
+}
