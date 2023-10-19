@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import accountLogo from "../../images/accountLogo.svg";
 
 function Header() {
-  const loggedIn = false;
+  const loggedIn = true;
   const [isMenuPopupOpen, setIsMenuPopupOpen] = useState(false);
 
   function handleMenuClick() {
