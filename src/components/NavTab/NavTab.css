@@ -21,7 +21,12 @@
   line-height: 16px;
   letter-spacing: 0px;
   text-align: left;
+  transition: opacity 0.3s;
 }
+
+.navtab__link:hover {
+    opacity: 0.7;
+  }
 
 @media screen and (max-width: 400px) {
     .navtab {
@@ -31,7 +36,7 @@
     .navtab__list {
         gap: 24px;
     }
-    
+
     .navtab__link {
         font-size: 11px;
 
