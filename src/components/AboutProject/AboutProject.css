@@ -2,27 +2,11 @@
   padding: 110px 70px;
 }
 
-.about-project__title-container {
-  padding-bottom: 23px;
-  border-bottom: 1px solid black;
-  margin-bottom: 70px;
-}
-
-.about-project__title {
-  font-family: Inter;
-  font-size: 22px;
-  font-weight: 400;
-  font-style: normal;
-  line-height: 27px;
-  letter-spacing: -0.04em;
-  text-align: left;
-  margin: 0;
-}
-
 .about-project__info-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
   column-gap: 40px;
+  margin-top: 70px;
 }
 
 .about-project__subtitle {
@@ -128,17 +112,9 @@
     padding: 70px 18px;
   }
 
-  .about-project__title-container {
-    padding-bottom: 28px;
-    margin-bottom: 60px;
-  }
-
-  .about-project__title {
-    font-size: 18px;
-    line-height: 22px;
-  }
   .about-project__info-container {
     display: block;
+    margin-top: 60px;
   }
 
   .about-project__info:first-child {
