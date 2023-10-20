@@ -1,5 +1,6 @@
 .techs {
   padding: 100px 70px;
+  background-color: #F5F5F5;
 }
 
 .techs__container {
@@ -35,9 +36,6 @@
   list-style: none;
   margin: 0;
   padding: 0;
-  /* display: grid;
-  grid-template-columns: repeat(auto-fit, 90px);
-  gap: 10px 10px; */
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -76,13 +74,9 @@
   .techs__subtitle {
     font-size: 12px;
     line-height: 18px;
-    max-width: 460px;
+    max-width: 390px;
     margin-bottom: 83px;
   }
-
-  /* .techs__items {
-    grid-template-columns: repeat(auto-fit, 84px);
-  } */
 
   .techs__item {
     width: 84px;
@@ -91,12 +85,6 @@
     line-height: 15px;
   }
 
-}
-
-@media screen and (max-width: 770px) {
-    /* .techs__items {
-        grid-template-columns: repeat(4, 84px);
-      } */
 }
 
 @media screen and (max-width: 450px) {
