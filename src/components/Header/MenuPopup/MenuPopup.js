@@ -2,9 +2,9 @@ import React from "react";
 import "./MenuPopup.css";
 import { NavLink } from "react-router-dom";
 
-function MenuPopup({ onClose }) {
+function MenuPopup({ isOpen, onClose }) {
   return (
-    <div className="popup">
+    <div className={`popup ${isOpen ? "popup_opened" : ""}`}>
       <nav className="popup__container">
         <div className="popup__wrapper">
           <NavLink

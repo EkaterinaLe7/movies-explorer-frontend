@@ -13,8 +13,16 @@
     background-color: rgba(0, 0, 0, 0.3);
     justify-content: flex-end;
     z-index: 5;
-    transition: visibility 0.2s, opacity 0.2s linear;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility .2s, opacity .2s linear;
   }
+
+  .popup_opened {
+    visibility: visible;
+    opacity: 1;
+  }
+  
 
   .popup__container {
     max-width: 520px;

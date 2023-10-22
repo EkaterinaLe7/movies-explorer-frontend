@@ -5,14 +5,14 @@ import MenuPopup from "./MenuPopup/MenuPopup";
 
 function Header({ isMainPage = false }) {
   const loggedIn = true;
-  const [isMenuPopupOpen, setIsMenuPopupOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   function handleMenuClick() {
-    setIsMenuPopupOpen(true);
+    setIsOpen(true);
   }
 
   function closePopup() {
-    setIsMenuPopupOpen(false);
+    setIsOpen(false);
   }
 
   return (
@@ -31,7 +31,7 @@ function Header({ isMainPage = false }) {
         <>
           <nav className="header__logged-container">
             <div className="header__wrapper">
-              <Link to="/" className="header__link header__link_bold">
+              <Link to="/movies" className="header__link header__link_bold">
                 Фильмы
               </Link>
               <Link to="/" className="header__link">
@@ -48,7 +48,7 @@ function Header({ isMainPage = false }) {
             onClick={handleMenuClick}
             type="button"
           ></button>
-          {isMenuPopupOpen ? <MenuPopup onClose={closePopup} /> : ''}
+          <MenuPopup isOpen={isOpen} onClose={closePopup} />
         </>
       )}
     </header>
