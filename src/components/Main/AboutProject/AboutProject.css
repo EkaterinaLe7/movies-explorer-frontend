@@ -1,5 +1,6 @@
 .about-project {
   padding: 110px 70px;
+  box-sizing: border-box;
 }
 
 .about-project__info-container {

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import "./Header.css";
 import { Link } from "react-router-dom";
-import accountLogo from "../../images/accountLogo.svg";
+import MenuPopup from "./MenuPopup/MenuPopup";
 
-function Header() {
+function Header({ isMainPage = false }) {
   const loggedIn = true;
   const [isMenuPopupOpen, setIsMenuPopupOpen] = useState(false);
 
@@ -16,11 +16,11 @@ function Header() {
   }
 
   return (
-    <header className="header">
+    <header className={`header ${isMainPage ? "header_colored" : ""}`}>
       <Link to="/" className="header__logo" />
       {!loggedIn ? (
         <nav className="header__links-container">
-          <Link to="/" className="header__link">
+          <Link to="/" className="header__link header__link_bold">
             Регистрация
           </Link>
           <Link to="/" className="header__link header__link_type_button">
@@ -31,7 +31,7 @@ function Header() {
         <>
           <nav className="header__logged-container">
             <div className="header__wrapper">
-              <Link to="/" className="header__link">
+              <Link to="/" className="header__link header__link_bold">
                 Фильмы
               </Link>
               <Link to="/" className="header__link">
@@ -40,7 +40,6 @@ function Header() {
             </div>
             <Link to="/" className="header__link header__link-account">
               Аккаунт
-              {/* <img src={accountLogo} className="header__link-img" alt="логотип аккаунта" /> */}
               <div className="header__link-img"></div>
             </Link>
           </nav>
@@ -49,9 +48,8 @@ function Header() {
             onClick={handleMenuClick}
             type="button"
           ></button>
+          {isMenuPopupOpen ? <MenuPopup onClose={closePopup} /> : ''}
         </>
-
-        // {isMenuPopupOpen && <Navigation onClose={closePopup} /> }
       )}
     </header>
   );

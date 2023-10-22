@@ -1,10 +1,14 @@
 .header {
-  background-color: #f3c1f8;
   display: flex;
   justify-content: space-between;
   align-items: center;
   min-height: 74px;
   padding: 0px 70px;
+  box-sizing: border-box;
+}
+
+.header_colored {
+  background-color: #f3c1f8;
 }
 
 .header__logo {
@@ -20,8 +24,8 @@
 
 .header__link {
   font-family: Inter;
-  font-size: 12px;
-  font-weight: 500;
+  font-size: 14px;
+  font-weight: 400;
   line-height: 16px;
   text-align: right;
   text-decoration: none;
@@ -31,6 +35,10 @@
 
 .header__link:hover {
     opacity: .7;
+}
+
+.header__link_bold {
+  font-weight: 500;
 }
 
 .header__link_type_button {
@@ -87,7 +95,7 @@
   display: none;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 850px) {
   .header__logged-container {
     display: none;
   }
