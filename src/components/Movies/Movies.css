@@ -10,7 +10,7 @@
     }    
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 400px) {
     .movies {
         padding-left: 10px;
         padding-right: 10px;

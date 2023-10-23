@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./SearchForm.css";
+import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 
 function SearchForm() {
 const [isFocused, setIsFocused] = useState(false);
@@ -11,11 +12,11 @@ function handleFocus() {
 function handleBlur() {
     setIsFocused(false);
 }
-
+// className={`search__form ${isFocused ? "search__form_focused" : ''} `}>
   return (
     <section className="search">
       <div className={`search__container ${isFocused ? "search__container_focused" : ''} `}>
-        <form className="search__form">
+        <form className={`search__form ${isFocused ? "search__form_focused" : ''} `}>
           <label className="search__label">
             <input
               className="search__input"
@@ -32,7 +33,7 @@ function handleBlur() {
             Найти
           </button>
         </form>
-
+          <FilterCheckbox />
       </div>
     </section>
   );
