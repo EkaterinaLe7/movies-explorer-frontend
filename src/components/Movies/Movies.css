@@ -1,18 +1,3 @@
 .movies {
-    padding-left: 70px;
-    padding-right: 70px;
-}
-
-@media screen and (max-width: 850px) {
-    .movies {
-        padding-left: 30px;
-        padding-right: 30px;
-    }    
-}
-
-@media screen and (max-width: 400px) {
-    .movies {
-        padding-left: 10px;
-        padding-right: 10px;
-    }    
+min-height: 60vh;
 }

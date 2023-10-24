@@ -1,0 +1,51 @@
+.card__btn {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    transition: opacity 0.2s linear;
+}
+
+.card__btn:hover {
+    opacity: .7;
+}
+
+.card__btn_type_save {
+font-size: 10px;
+font-weight: 400;
+line-height: 9px;
+letter-spacing: 0px;
+text-align: center;
+padding: 6px 7px;
+border-radius: 30px;
+background-color: #F9F9F9;
+opacity: 0;
+}
+
+.card:hover .card__btn_type_save {
+    opacity: 1;
+}
+
+.card:hover .card__btn_type_save:hover {
+    opacity: .7;
+}
+
+.card__btn_type_saved {
+    width: 21px;
+    height: 21px;
+    background-color: transparent;
+    background-image: url(../../../images/saved-btn.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+@media screen and (max-width: 700px) {
+    .card__btn {
+        top: 10px;
+        right: 10px;
+
+    }
+}

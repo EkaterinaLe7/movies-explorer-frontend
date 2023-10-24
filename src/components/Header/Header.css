@@ -30,7 +30,7 @@
   text-align: right;
   text-decoration: none;
   color: #000;
-  transition: opacity 0.2s;
+  transition: opacity 0.2s ease;
 }
 
 .header__link:hover {
@@ -111,7 +111,7 @@
     background-color: transparent;
     cursor: pointer;
     border: none;
-    transition: opacity 0.2s;
+    transition: opacity 0.2s ease;
   }
 
   .header__menu-btn:hover {

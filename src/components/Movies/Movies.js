@@ -1,11 +1,14 @@
 import React from "react";
 import "./Movies.css";
-import SearchForm from "./SearchForm/SearchForm"
+import SearchForm from "./SearchForm/SearchForm";
+import MoviesCardList from "../MoviesCardList/MoviesCardList";
+import cards from "./cards"
 
 function Movies() {
     return(
         <main className="movies">
             <SearchForm />
+            <MoviesCardList cards={cards} />
         </main>
     )
 }
