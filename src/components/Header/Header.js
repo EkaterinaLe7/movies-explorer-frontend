@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import MenuPopup from "./MenuPopup/MenuPopup";
 
 function Header({ isMainPage = false }) {
-  const loggedIn = true;
+  const loggedIn = false;
   const [isOpen, setIsOpen] = useState(false);
 
   function handleMenuClick() {
@@ -20,7 +20,7 @@ function Header({ isMainPage = false }) {
       <Link to="/" className="header__logo" />
       {!loggedIn ? (
         <nav className="header__links-container">
-          <Link to="/" className="header__link header__link_bold">
+          <Link to="/signup" className="header__link header__link_bold">
             Регистрация
           </Link>
           <Link to="/" className="header__link header__link_type_button">

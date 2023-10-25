@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
-import "./App.css"
+import "./App.css";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
-import Footer from "../Footer/Footer"
-import Movies from "../Movies/Movies"
-import SavedMovies from "../SavedMovies/SavedMovies"
-import Profile from "../Profile/Profile"
+import Footer from "../Footer/Footer";
+import Movies from "../Movies/Movies";
+import SavedMovies from "../SavedMovies/SavedMovies";
+import Profile from "../Profile/Profile";
+import Register from "../Register/Register";
 
 function App() {
   return (
@@ -16,7 +17,7 @@ function App() {
           path="/"
           element={
             <>
-              <Header isMainPage={true}/>
+              <Header isMainPage={true} />
               <Main />
               <Footer />
             </>
@@ -26,7 +27,7 @@ function App() {
           path="/movies"
           element={
             <>
-              <Header/>
+              <Header />
               <Movies />
               <Footer />
             </>
@@ -36,7 +37,7 @@ function App() {
           path="/saved-movies"
           element={
             <>
-              <Header/>
+              <Header />
               <SavedMovies />
               <Footer />
             </>
@@ -46,8 +47,16 @@ function App() {
           path="/profile"
           element={
             <>
-              <Header/>
+              <Header />
               <Profile />
+            </>
+          }
+        />
+        <Route
+          path="/signup"
+          element={
+            <>
+              <Register />
             </>
           }
         />
