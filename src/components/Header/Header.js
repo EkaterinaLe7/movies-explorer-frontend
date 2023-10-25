@@ -34,7 +34,7 @@ function Header({ isMainPage = false }) {
               <Link to="/movies" className="header__link header__link_bold">
                 Фильмы
               </Link>
-              <Link to="/" className="header__link">
+              <Link to="/saved-movies" className="header__link">
                 Сохранённые фильмы
               </Link>
             </div>

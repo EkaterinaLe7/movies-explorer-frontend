@@ -26,7 +26,7 @@ function MenuPopup({ isOpen, onClose }) {
             Фильмы
           </NavLink>
           <NavLink
-            to="/"
+            to="/saved-movies"
             className={({ isActive }) =>
               `popup__link ${isActive ? "popup__link_active" : ""}`
             }

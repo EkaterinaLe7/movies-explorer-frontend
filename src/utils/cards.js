@@ -1,4 +1,4 @@
-import movie from "../../images/film.jpg";
+import movie from "../images/film.jpg";
 
 const cards = [
     { id: 1, image: movie, name: "Бег это свобода", duration: "1ч 42м" },

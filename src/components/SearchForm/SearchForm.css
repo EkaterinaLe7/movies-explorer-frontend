@@ -46,7 +46,7 @@
 
 .search__container::before {
   content: "";
-  background-image: url(../../../images/searchIcon.svg);
+  background-image: url(../../images/searchIcon.svg);
   background-repeat: no-repeat;
   background-position: center;
   object-fit: contain;
@@ -98,8 +98,6 @@
 
 @media screen and (max-width: 850px) {
   .search {
-    /* padding-top: 80px;
-    padding-bottom: 109px; */
     padding-left: 30px;
     padding-right: 30px;
   }
@@ -170,10 +168,6 @@
   .search__wrapper {
     padding-bottom: 44px;
   }
-
-  /* .search__container {
-    padding: 19px;
-  } */
 
   .search__input {
     font-size: 14px;
