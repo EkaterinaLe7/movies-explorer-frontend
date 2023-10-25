@@ -36,7 +36,7 @@ function MenuPopup({ isOpen, onClose }) {
           </NavLink>
         </div>
         <NavLink
-          to="/"
+          to="/profile"
           className={({ isActive }) =>
             `popup__link-account ${
               isActive ? "popup__link-account_active" : ""

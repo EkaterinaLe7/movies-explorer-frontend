@@ -6,7 +6,7 @@ import cards from "../../utils/saved-cards";
 
 function SavedMovies() {
   return (
-    <main className="movies">
+    <main className="saved-movies">
       <SearchForm />
       <MoviesCardList cards={cards} />
     </main>

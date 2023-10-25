@@ -38,7 +38,7 @@ function Header({ isMainPage = false }) {
                 Сохранённые фильмы
               </Link>
             </div>
-            <Link to="/" className="header__link header__link-account">
+            <Link to="/profile" className="header__link header__link-account">
               Аккаунт
               <div className="header__link-img"></div>
             </Link>

@@ -7,20 +7,32 @@ function MovieCardButton({ isSaved, onSave, onDelete }) {
 
   return (
     <>
-      {isSaved ? (
+      {location.pathname === "/saved-movies" && (
         <button
-          className="card__btn card__btn_type_saved"
-          type="button"
-          onClick={onDelete}
-        ></button>
-      ) : (
-        <button
-          className="card__btn card__btn_type_save"
+          className="card__btn card__btn_type_delete"
           type="button"
           onClick={onSave}
-        >
-          Сохранить
-        </button>
+        ></button>
+      )}
+
+      {location.pathname === "/movies" && (
+        <>
+          {isSaved ? (
+            <button
+              className="card__btn card__btn_type_saved"
+              type="button"
+              onClick={onDelete}
+            ></button>
+          ) : (
+            <button
+              className="card__btn card__btn_type_save"
+              type="button"
+              onClick={onSave}
+            >
+              Сохранить
+            </button>
+          )}
+        </>
       )}
     </>
   );
