@@ -1,16 +1,16 @@
-.register {
+.login {
   padding: 70px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.register__container {
+.login__container {
   max-width: 396px;
   width: 100%;
 }
 
-.register__label {
+.login__label {
   display: flex;
   flex-direction: column;
   font-size: 10px;
@@ -21,7 +21,7 @@
   color: #a0a0a0;
 }
 
-.register__input {
+.login__input {
   font-size: 13px;
   font-weight: 400;
   line-height: 16px;
@@ -35,7 +35,7 @@
   color: #000;
 }
 
-.register__error {
+.login__error {
   font-size: 10px;
   font-weight: 400;
   line-height: 12px;
@@ -44,19 +44,19 @@
   color: #ff4062;
   margin-top: 10px;
   min-height: 10px;
-  /* opacity: 0; */
+  opacity: 0;
 }
 
-.register__error_visible {
+.login__error_visible {
   opacity: 1;
 }
 
-.register__input_type_error {
+.login__input_type_error {
   color: #ff4062;
   /* border: 2px solid #ff4062; */
 }
 
-.register__link-text {
+.login__link-text {
   font-size: 14px;
   font-weight: 400;
   line-height: 17px;
@@ -67,43 +67,43 @@
   color: #a0a0a0;
 }
 
-.register__link {
+.login__link {
   color: #000;
   text-decoration: none;
   transition: opacity 0.2s linear;
 }
 
-.register__link {
+.login__link {
   opacity: 0.7;
 }
 
 @media screen and (max-width: 800px) {
-  .register {
+  .login {
     padding-top: 232px;
     padding-bottom: 232px;
   }
 }
 
 @media screen and (max-width: 650px) {
-  .register {
+  .login {
     padding: 56px 50px 30px;
   }
 }
 
 @media screen and (max-width: 450px) {
-  .register {
+  .login {
     padding-left: 30px;
     padding-right: 30px;
   }
 
-  .register__container {
+  .login__container {
     max-width: 260px;
     display: flex;
     flex-direction: column;
     align-items: center;
   }
 
-  .register__link-text {
+  .login__link-text {
     font-size: 12px;
     line-height: 15px;
   }

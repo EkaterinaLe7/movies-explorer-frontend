@@ -23,7 +23,7 @@ function Header({ isMainPage = false }) {
           <Link to="/signup" className="header__link header__link_bold">
             Регистрация
           </Link>
-          <Link to="/" className="header__link header__link_type_button">
+          <Link to="/signin" className="header__link header__link_type_button">
             Войти
           </Link>
         </nav>
