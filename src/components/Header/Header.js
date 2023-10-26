@@ -16,6 +16,7 @@ function Header({ isMainPage = false }) {
   }
 
   return (
+   
     <header className={`header ${isMainPage ? "header_colored" : ""}`}>
       <Link to="/" className="header__logo" />
       {!loggedIn ? (
