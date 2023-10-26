@@ -23,30 +23,31 @@ function MoviesCardList({ cards, isLoading = false }) {
         <Preloader />
       ) : (
         <>
-        {cards.length === 0 ? <h2 className="cards__message">Фильмов не найдено</h2> :
-          <>
-          <ul className="cards__list">
-            {cards.map((card) => (
-              <MoviesCard
-                key={card.id}
-                name={card.name}
-                image={card.image}
-                duration={card.duration}
-                isSaved={isSaved}
-                onSave={handleSave}
-                onDelete={handleDelete}
-              />
-            ))}
-          </ul>
-          {location.pathname === "/movies" && (
-            <div className="cards__btn-container">
-              <button className="cards__button">Ещё</button>
-            </div>
+          {cards.length === 0 ? (
+            <h2 className="cards__message">Фильмов не найдено</h2>
+          ) : (
+            <>
+              <ul className="cards__list">
+                {cards.map((card) => (
+                  <MoviesCard
+                    key={card.id}
+                    name={card.name}
+                    image={card.image}
+                    duration={card.duration}
+                    isSaved={isSaved}
+                    onSave={handleSave}
+                    onDelete={handleDelete}
+                  />
+                ))}
+              </ul>
+              {location.pathname === "/movies" && (
+                <div className="cards__btn-container">
+                  <button className="cards__button">Ещё</button>
+                </div>
+              )}
+            </>
           )}
         </>
-        }
-        </>
-        
       )}
     </section>
   );

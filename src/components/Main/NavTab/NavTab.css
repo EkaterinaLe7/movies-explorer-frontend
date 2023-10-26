@@ -15,7 +15,6 @@
 
 .navtab__link {
   color: #fff;
-  font-family: Inter;
   font-size: 13px;
   font-weight: 500;
   line-height: 16px;
@@ -25,20 +24,19 @@
 }
 
 .navtab__link:hover {
-    opacity: 0.7;
-  }
+  opacity: 0.7;
+}
 
 @media screen and (max-width: 400px) {
-    .navtab {
-        padding: 25px 0 25px;
-    }
+  .navtab {
+    padding: 25px 0 25px;
+  }
 
-    .navtab__list {
-        gap: 24px;
-    }
+  .navtab__list {
+    gap: 24px;
+  }
 
-    .navtab__link {
-        font-size: 11px;
-
-    }
+  .navtab__link {
+    font-size: 11px;
+  }
 }

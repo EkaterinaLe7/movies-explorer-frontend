@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./Header.css";
 import { Link } from "react-router-dom";
+import Logo from "../Logo/Logo";
 import Navigation from "./Navigation/Navigation";
 
 function Header({ isMainPage = false }) {
@@ -16,12 +17,11 @@ function Header({ isMainPage = false }) {
   }
 
   return (
-   
     <header className={`header ${isMainPage ? "header_colored" : ""}`}>
-      <Link to="/" className="header__logo" />
+      <Logo />
       {!loggedIn ? (
         <nav className="header__links-container">
-          <Link to="/signup" className="header__link header__link_bold">
+          <Link to="/signup" className="header__link">
             Регистрация
           </Link>
           <Link to="/signin" className="header__link header__link_type_button">
@@ -32,16 +32,26 @@ function Header({ isMainPage = false }) {
         <>
           <nav className="header__logged-container">
             <div className="header__wrapper">
-              <Link to="/movies" className="header__link header__link_bold">
+              <Link to="/movies" className="header__link header__link_logged">
                 Фильмы
               </Link>
-              <Link to="/saved-movies" className="header__link">
+              <Link
+                to="/saved-movies"
+                className="header__link header__link_logged  header__link_bold"
+              >
                 Сохранённые фильмы
               </Link>
             </div>
-            <Link to="/profile" className="header__link header__link-account">
+            <Link
+              to="/profile"
+              className="header__link header__link_logged header__link-account"
+            >
               Аккаунт
-              <div className={`header__link-img ${isMainPage ? "header__link-img_colored" : ""}`}></div>
+              <div
+                className={`header__link-img ${
+                  isMainPage ? "header__link-img_colored" : ""
+                }`}
+              ></div>
             </Link>
           </nav>
           <button

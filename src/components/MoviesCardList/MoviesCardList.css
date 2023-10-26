@@ -1,5 +1,5 @@
 .cards {
-  padding: 80px 70px 12px;
+  padding: 80px 70px 0;
 }
 
 .cards__message {
@@ -19,13 +19,14 @@
 }
 
 .cards__btn-container {
-  margin: 50px 0 80px;
+  margin: 62px 0 80px;
   display: flex;
   justify-content: center;
 }
 
 .cards__button {
   background-color: #f9f9f9;
+  padding: 11px 0 9px;
   border: none;
   width: 320px;
   height: 36px;
@@ -50,15 +51,13 @@
   }
 
   .cards {
-    padding: 80px 30px 12px;
+    padding: 80px 30px 0;
   }
 }
 
 @media screen and (max-width: 767px) {
   .cards {
-    .cards {
-      padding: 50px 10px 13px;
-    }
+    padding: 50px 10px 0;
   }
 
   .cards__list {
@@ -75,4 +74,8 @@
   .cards__list {
     column-gap: 20px;
   }
+
+  /* .cards__btn-container {
+    margin: 61px 0 89px;
+  } */
 }

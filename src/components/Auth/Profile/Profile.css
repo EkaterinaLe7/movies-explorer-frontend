@@ -20,6 +20,7 @@
   justify-content: space-between;
   max-width: 410px;
   width: 100%;
+  box-sizing: border-box;
 }
 
 .profile__label {
@@ -30,6 +31,8 @@
   text-align: left;
   display: flex;
   justify-content: space-between;
+  cursor: text;
+  box-sizing: border-box;
 }
 
 .profile__label:last-of-type {
@@ -44,6 +47,10 @@
   text-align: right;
   border: none;
   outline: none;
+}
+
+.profile__label_focused {
+  box-shadow: 0px 1px 1px -1px rgba(2, 2, 2, 0.5);
 }
 
 .profile__border {
@@ -62,6 +69,7 @@
   background-color: #fff;
   border: none;
   cursor: pointer;
+  padding: 0;
   transition: opacity 0.2s ease;
 }
 
@@ -75,7 +83,6 @@
   color: #ff4062;
   margin-top: 16px;
 }
-
 
 @media screen and (max-width: 800px) {
   .profile {
@@ -109,5 +116,11 @@
     font-size: 12px;
     font-weight: 400;
     line-height: 15px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .profile__label:last-of-type {
+    margin-bottom: 379px;
   }
 }

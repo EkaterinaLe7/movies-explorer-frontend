@@ -3,7 +3,7 @@
   background-color: #f3c1f8;
   display: flex;
   justify-content: center;
-  align-items: center;
+  /* align-items: center; */
   position: relative;
   box-sizing: border-box;
 }
@@ -16,13 +16,14 @@
   background-position: center;
   background-size: contain;
   position: absolute;
-  top: center;
+  top: 0;
   left: center;
   z-index: 2;
+  margin-top: 82px;
 }
 
 .promo__title {
-  margin: 0;
+  margin: 184px 0 0;
   font-family: Inter;
   font-size: 50px;
   font-weight: 400;
@@ -35,6 +36,14 @@
 @media screen and (max-width: 780px) {
   .promo {
     min-height: 784px;
+  }
+
+  .promo__image {
+    margin-top: 224px;
+  }
+
+  .promo__title {
+    margin-top: 326px;
   }
 }
 
@@ -66,10 +75,12 @@
     font-size: 31px;
     line-height: 39px;
     max-width: 300px;
+    margin-top: 207px;
   }
 
   .promo__image {
     width: 248px;
     height: 248px;
+    margin-top: 142px;
   }
 }

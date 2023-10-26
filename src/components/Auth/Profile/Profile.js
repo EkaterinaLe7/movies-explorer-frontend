@@ -7,11 +7,34 @@ function Profile() {
     email: "pochta@yandex.ru",
   });
 
+  const [isFocusedInputName, setIsFocusedInputName] = useState(false);
+  const [isFocusedInputEmail, setIsFocusedInputEmail] = useState(false);
+
+  function handleFocusName() {
+    setIsFocusedInputName(true);
+  }
+  function handleFocusEmail() {
+    setIsFocusedInputEmail(true);
+  }
+
+  function handleBlurName() {
+    setIsFocusedInputName(false);
+  }
+
+  function handleBlurEmail() {
+    setIsFocusedInputEmail(false);
+  }
+
   return (
     <main className="profile">
       <h2 className="profile__title">Привет, {currentUser.name}!</h2>
       <form className="profile__form">
-          <label className="profile__label">
+          <label 
+          // className="profile__label"
+          className={`profile__label ${
+            isFocusedInputName ? "profile__label_focused" : ""
+          } `}
+          >
             Имя
             <input
               className="profile__input"
@@ -21,13 +44,20 @@ function Profile() {
             //   временное решение для верстки
               defaultValue={currentUser.name}
               placeholder="Имя"
-              required=""
+              required
               minLength={2}
               maxLength={40}
+              onFocus={handleFocusName}
+                onBlur={handleBlurName}
             />
           </label>
           <div className="profile__border"></div>
-          <label className="profile__label">
+          <label 
+          // className="profile__label"
+          className={`profile__label ${
+            isFocusedInputEmail ? "profile__label_focused" : ""
+          } `}
+          >
             E-mail
             <input
               className="profile__input"
@@ -40,6 +70,8 @@ function Profile() {
               required=""
               minLength={2}
               maxLength={40}
+              onFocus={handleFocusEmail}
+                onBlur={handleBlurEmail}
             />
           </label>
         <button className="profile__btn" type="submit">

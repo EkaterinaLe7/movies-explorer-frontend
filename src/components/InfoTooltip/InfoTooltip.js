@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import "./InfoTooltip.css";
 
 function InfoTooltip({ isOpen = false, sign, text }) {
@@ -7,7 +7,6 @@ function InfoTooltip({ isOpen = false, sign, text }) {
       <div className="popup__container">
         <button
           className="popup__button-close"
-        //   onClick={closeAllPopups}
         ></button>
         <div className="popup__info-wrapper">
           <img className="popup__sign" src={sign} alt="Иконка" />

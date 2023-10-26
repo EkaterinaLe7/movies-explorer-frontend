@@ -7,33 +7,39 @@ function Navigation({ isOpen, onClose }) {
     <div className={`navigation ${isOpen ? "navigation_opened" : ""}`}>
       <nav className="navigation__container">
         <div className="navigation__wrapper">
-          <NavLink
-            to="/"
-            className={({ isActive }) =>
-              `navigation__link ${isActive ? "navigation__link_active" : ""}`
-            }
-            onClick={onClose}
-          >
-            Главная
-          </NavLink>
-          <NavLink
-            to="/movies"
-            className={({ isActive }) =>
-              `navigation__link ${isActive ? "navigation__link_active" : ""}`
-            }
-            onClick={onClose}
-          >
-            Фильмы
-          </NavLink>
-          <NavLink
-            to="/saved-movies"
-            className={({ isActive }) =>
-              `navigation__link ${isActive ? "navigation__link_active" : ""}`
-            }
-            onClick={onClose}
-          >
-            Сохранённые фильмы
-          </NavLink>
+          <div className="navigation__link-wrapper">
+            <NavLink
+              to="/"
+              className={({ isActive }) =>
+                `navigation__link ${isActive ? "navigation__link_active" : ""}`
+              }
+              onClick={onClose}
+            >
+              Главная
+            </NavLink>
+          </div>
+          <div className="navigation__link-wrapper">
+            <NavLink
+              to="/movies"
+              className={({ isActive }) =>
+                `navigation__link ${isActive ? "navigation__link_active" : ""}`
+              }
+              onClick={onClose}
+            >
+              Фильмы
+            </NavLink>
+          </div>
+          <div className="navigation__link-wrapper">
+            <NavLink
+              to="/saved-movies"
+              className={({ isActive }) =>
+                `navigation__link ${isActive ? "navigation__link_active" : ""}`
+              }
+              onClick={onClose}
+            >
+              Сохранённые фильмы
+            </NavLink>
+          </div>
         </div>
         <NavLink
           to="/profile"

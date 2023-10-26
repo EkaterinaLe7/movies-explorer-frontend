@@ -1,6 +1,6 @@
 .techs {
   padding: 100px 70px;
-  background-color: #F5F5F5;
+  background-color: #f5f5f5;
   box-sizing: border-box;
 }
 
@@ -75,7 +75,7 @@
   .techs__subtitle {
     font-size: 12px;
     line-height: 18px;
-    max-width: 390px;
+    max-width: 460px;
     margin-bottom: 83px;
   }
 
@@ -85,7 +85,6 @@
     font-size: 12px;
     line-height: 15px;
   }
-
 }
 
 @media screen and (max-width: 450px) {
@@ -112,9 +111,9 @@
 }
 
 @media screen and (max-width: 380px) {
-    .techs__items {
-        display: grid;
-    gap: 10px 10px; 
-     grid-template-columns: repeat(2, 84px);
-   } 
+  .techs__items {
+    display: grid;
+    gap: 10px 10px;
+    grid-template-columns: repeat(2, 84px);
+  }
 }
