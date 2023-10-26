@@ -23,6 +23,8 @@ function MoviesCardList({ cards, isLoading = false }) {
         <Preloader />
       ) : (
         <>
+        {cards.length === 0 ? <h2 className="cards__message">Фильмов не найдено</h2> :
+          <>
           <ul className="cards__list">
             {cards.map((card) => (
               <MoviesCard
@@ -42,6 +44,9 @@ function MoviesCardList({ cards, isLoading = false }) {
             </div>
           )}
         </>
+        }
+        </>
+        
       )}
     </section>
   );

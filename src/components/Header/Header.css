@@ -74,13 +74,13 @@
 .header__link-img {
   width: 30px;
   height: 30px;
-  background-color: #000;
+  background-color: #F9F9F9;
   border-radius: 6px;
   position: relative;
 }
 .header__link-img::before {
   content: "";
-  background-image: url(../../images/accLogo2.svg);
+  background-image: url(../../images/acc-logo_black.svg);
   background-repeat: no-repeat;
   background-position: center;
   width: 12px;
@@ -89,6 +89,15 @@
   z-index: 2;
   top: 9px;
   left: 9px;
+}
+
+.header__link-img_colored {
+  background-color: #000;
+
+}
+
+.header__link-img_colored::before {
+  background-image: url(../../images/accLogo2.svg);
 }
 
 .header__menu-btn {

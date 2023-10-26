@@ -1,23 +1,55 @@
 import React from "react";
 import "./Navigation.css";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
-function Navigation() {
+function Navigation({ isOpen, onClose }) {
   return (
-    <nav className="navigation">
-      <div className="navigation__wrapper">
-        <Link to="/" className="navigation__link">
-          Фильмы
-        </Link>
-        <Link to="/" className="navigation__link">
-          Сохранённые фильмы
-        </Link>
-      </div>
-      <Link to="/" className="navigation__link header__link-account">
-        Аккаунт
-        <div className="navigation__link-img"></div>
-      </Link>
-    </nav>
+    <div className={`navigation ${isOpen ? "navigation_opened" : ""}`}>
+      <nav className="navigation__container">
+        <div className="navigation__wrapper">
+          <NavLink
+            to="/"
+            className={({ isActive }) =>
+              `navigation__link ${isActive ? "navigation__link_active" : ""}`
+            }
+            onClick={onClose}
+          >
+            Главная
+          </NavLink>
+          <NavLink
+            to="/movies"
+            className={({ isActive }) =>
+              `navigation__link ${isActive ? "navigation__link_active" : ""}`
+            }
+            onClick={onClose}
+          >
+            Фильмы
+          </NavLink>
+          <NavLink
+            to="/saved-movies"
+            className={({ isActive }) =>
+              `navigation__link ${isActive ? "navigation__link_active" : ""}`
+            }
+            onClick={onClose}
+          >
+            Сохранённые фильмы
+          </NavLink>
+        </div>
+        <NavLink
+          to="/profile"
+          className={({ isActive }) =>
+            `navigation__link-account ${
+              isActive ? "navigation__link-account_active" : ""
+            }`
+          }
+          onClick={onClose}
+        >
+          Аккаунт
+          <div className="navigation__link-img"></div>
+        </NavLink>
+        <div className="navigation__button-close" onClick={onClose}></div>
+      </nav>
+    </div>
   );
 }
 

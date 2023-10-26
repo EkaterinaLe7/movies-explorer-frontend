@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import "./Header.css";
 import { Link } from "react-router-dom";
-import MenuPopup from "./MenuPopup/MenuPopup";
+import Navigation from "./Navigation/Navigation";
 
 function Header({ isMainPage = false }) {
-  const loggedIn = false;
+  const loggedIn = true;
   const [isOpen, setIsOpen] = useState(false);
 
   function handleMenuClick() {
@@ -40,7 +40,7 @@ function Header({ isMainPage = false }) {
             </div>
             <Link to="/profile" className="header__link header__link-account">
               Аккаунт
-              <div className="header__link-img"></div>
+              <div className={`header__link-img ${isMainPage ? "header__link-img_colored" : ""}`}></div>
             </Link>
           </nav>
           <button
@@ -48,7 +48,7 @@ function Header({ isMainPage = false }) {
             onClick={handleMenuClick}
             type="button"
           ></button>
-          <MenuPopup isOpen={isOpen} onClose={closePopup} />
+          <Navigation isOpen={isOpen} onClose={closePopup} />
         </>
       )}
     </header>

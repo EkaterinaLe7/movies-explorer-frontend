@@ -2,6 +2,12 @@
   padding: 80px 70px 12px;
 }
 
+.cards__message {
+  color: #000;
+  margin: 5px auto;
+  text-align: center;
+}
+
 .cards__list {
   display: grid;
   list-style: none;
