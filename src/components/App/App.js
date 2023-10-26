@@ -9,6 +9,7 @@ import SavedMovies from "../SavedMovies/SavedMovies";
 import Profile from "../Profile/Profile";
 import Register from "../Register/Register";
 import Login from "../Login/Login";
+import PageNotFound from "../PageNotFound/PageNotFound";
 
 function App() {
   return (
@@ -53,22 +54,9 @@ function App() {
             </>
           }
         />
-        <Route
-          path="/signup"
-          element={
-            <>
-              <Register />
-            </>
-          }
-        />
-                <Route
-          path="/signin"
-          element={
-            <>
-              <Login />
-            </>
-          }
-        />
+        <Route path="/signup" element={<Register />} />
+        <Route path="/signin" element={<Login />} />
+        <Route path="/*" element={<PageNotFound />} />
       </Routes>
     </div>
   );
