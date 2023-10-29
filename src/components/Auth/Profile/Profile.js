@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./Profile.css";
 
-function Profile() {
+function Profile({ isLoading = false }) {
   const [currentUser] = useState({
     name: "Виталий",
     email: "pochta@yandex.ru",
@@ -9,7 +9,7 @@ function Profile() {
 
   const [isFocusedInputName, setIsFocusedInputName] = useState(false);
   const [isFocusedInputEmail, setIsFocusedInputEmail] = useState(false);
-  // const [isEditMode, setIsEditMode] = useState(false);
+  const [isEdit, setIsEdit] = useState(false);
 
   function handleFocusName() {
     setIsFocusedInputName(true);
@@ -26,9 +26,9 @@ function Profile() {
     setIsFocusedInputEmail(false);
   }
 
-  // function handleEditMode {
-  //   setIsEditMode(true);
-  // }
+  function handleEdit() {
+    setIsEdit(!isEdit);
+  }
 
   return (
     <main className="profile">
@@ -78,14 +78,33 @@ function Profile() {
             />
           </label>
         </div>
-        
-        <button className="profile__btn" type="submit">
-          Редактировать
-        </button>
+
+        <div className="profile__btn-container">
+          {isEdit ? (
+            <>
+              <span className="profile__error">
+                При обновлении профиля произошла ошибка.
+              </span>
+              <button className="profile__btn-submit" type="submit">
+                {`${isLoading ? "Сохранение..." : "Сохранить"}`}
+              </button>
+            </>
+          ) : (
+            <>
+              <button
+                className="profile__btn"
+                type="button"
+                onClick={handleEdit}
+              >
+                Редактировать
+              </button>
+              <button className="profile__btn profile__btn_type_logout">
+                Выйти из аккаунта
+              </button>
+            </>
+          )}
+        </div>
       </form>
-      <button className="profile__btn profile__btn_type_logout">
-        Выйти из аккаунта
-      </button>
     </main>
   );
 }
