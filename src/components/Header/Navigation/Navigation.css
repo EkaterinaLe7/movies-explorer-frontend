@@ -77,9 +77,11 @@
     transition: opacity 0.2s linear;
     color: #000;
     text-decoration: none;
+    text-align: center;
     display: flex;
     gap: 13px;
     align-items: center;
+    margin-top: 20px;
   }
 
   .navigation__link-account:hover {

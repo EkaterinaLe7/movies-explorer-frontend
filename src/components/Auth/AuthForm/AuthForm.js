@@ -10,7 +10,7 @@ function AuthForm({ isLoading, title, children, buttonText }) {
         <h2 className="auth__title">{title}</h2>
       </div>
       <form className="auth__form" method="post" name="register">
-        {children}
+        <div className="auth__wrapper">{children}</div>
         <button className="auth__button" type="submit">
           {`${isLoading ? "Отправка..." : buttonText}`}
         </button>

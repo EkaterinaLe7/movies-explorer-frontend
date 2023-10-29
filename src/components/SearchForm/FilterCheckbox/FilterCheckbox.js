@@ -3,13 +3,13 @@ import "./FilterCheckbox.css";
 
 function FilterCheckbox() {
   return (
-    <div className="filter">
+    <form className="filter">
       <label className="filter__switch">
         <input type="checkbox" className="filter__input" />
-        <div className="filter__slider filter__round"></div>
+        <span className="filter__slider filter__round"></span>
       </label>
       <span className="filter__text">Короткометражки</span>
-    </div>
+    </form>
   );
 }
 

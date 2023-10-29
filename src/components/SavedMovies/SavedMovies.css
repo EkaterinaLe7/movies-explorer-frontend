@@ -2,6 +2,16 @@
   min-height: 60vh;
 }
 
+.saved-movies {
+  padding-bottom: 187px;
+}
+
+@media screen and (max-width: 800px) {
+  .saved-movies {
+    padding-bottom: 177px;
+  }
+}
+
 @media screen and (max-width: 400px) {
   .saved-movies {
     padding-bottom: 153px;

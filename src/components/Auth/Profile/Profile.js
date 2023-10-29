@@ -9,6 +9,7 @@ function Profile() {
 
   const [isFocusedInputName, setIsFocusedInputName] = useState(false);
   const [isFocusedInputEmail, setIsFocusedInputEmail] = useState(false);
+  // const [isEditMode, setIsEditMode] = useState(false);
 
   function handleFocusName() {
     setIsFocusedInputName(true);
@@ -25,15 +26,19 @@ function Profile() {
     setIsFocusedInputEmail(false);
   }
 
+  // function handleEditMode {
+  //   setIsEditMode(true);
+  // }
+
   return (
     <main className="profile">
       <h2 className="profile__title">Привет, {currentUser.name}!</h2>
       <form className="profile__form">
-          <label 
-          // className="profile__label"
-          className={`profile__label ${
-            isFocusedInputName ? "profile__label_focused" : ""
-          } `}
+        <div>
+          <label
+            className={`profile__label ${
+              isFocusedInputName ? "profile__label_focused" : ""
+            } `}
           >
             Имя
             <input
@@ -41,22 +46,20 @@ function Profile() {
               type="text"
               id="name-input"
               name="name"
-            //   временное решение для верстки
               defaultValue={currentUser.name}
               placeholder="Имя"
               required
               minLength={2}
               maxLength={40}
               onFocus={handleFocusName}
-                onBlur={handleBlurName}
+              onBlur={handleBlurName}
             />
           </label>
           <div className="profile__border"></div>
-          <label 
-          // className="profile__label"
-          className={`profile__label ${
-            isFocusedInputEmail ? "profile__label_focused" : ""
-          } `}
+          <label
+            className={`profile__label ${
+              isFocusedInputEmail ? "profile__label_focused" : ""
+            } `}
           >
             E-mail
             <input
@@ -64,21 +67,25 @@ function Profile() {
               type="email"
               id="email-input"
               name="email"
-            //   временное решение для верстки
+              //   временное решение для верстки
               defaultValue={currentUser.email}
               placeholder="E-mail"
               required=""
               minLength={2}
               maxLength={40}
               onFocus={handleFocusEmail}
-                onBlur={handleBlurEmail}
+              onBlur={handleBlurEmail}
             />
           </label>
+        </div>
+        
         <button className="profile__btn" type="submit">
           Редактировать
         </button>
       </form>
-      <button className="profile__btn profile__btn_type_logout">Выйти из аккаунта</button>
+      <button className="profile__btn profile__btn_type_logout">
+        Выйти из аккаунта
+      </button>
     </main>
   );
 }

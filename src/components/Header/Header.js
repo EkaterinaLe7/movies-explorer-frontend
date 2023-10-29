@@ -17,7 +17,7 @@ function Header({ isMainPage = false }) {
   }
 
   return (
-    <header className={`header ${isMainPage ? "header_colored" : ""}`}>
+    <header className={`header ${isMainPage ? "header_type_colored" : ""}`}>
       <Logo />
       {!loggedIn ? (
         <nav className="header__links-container">
@@ -32,24 +32,27 @@ function Header({ isMainPage = false }) {
         <>
           <nav className="header__logged-container">
             <div className="header__wrapper">
-              <Link to="/movies" className="header__link header__link_logged">
+              <Link
+                to="/movies"
+                className="header__link header__link_type_logged"
+              >
                 Фильмы
               </Link>
               <Link
                 to="/saved-movies"
-                className="header__link header__link_logged  header__link_bold"
+                className="header__link header__link_type_logged  header__link_type_bold"
               >
                 Сохранённые фильмы
               </Link>
             </div>
             <Link
               to="/profile"
-              className="header__link header__link_logged header__link-account"
+              className="header__link header__link_type_logged header__link-account"
             >
               Аккаунт
               <div
                 className={`header__link-img ${
-                  isMainPage ? "header__link-img_colored" : ""
+                  isMainPage ? "header__link-img_type_colored" : ""
                 }`}
               ></div>
             </Link>

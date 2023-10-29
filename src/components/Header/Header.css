@@ -7,7 +7,7 @@
   box-sizing: border-box;
 }
 
-.header_colored {
+.header_type_colored {
   background-color: #f3c1f8;
 }
 
@@ -25,12 +25,12 @@
   opacity: 0.7;
 }
 
-.header__link_logged {
+.header__link_type_logged {
   font-size: 14px;
   line-height: 18px;
 }
 
-.header__link_bold {
+.header__link_type_bold {
   font-weight: 400;
 }
 
@@ -84,11 +84,11 @@
   left: 9px;
 }
 
-.header__link-img_colored {
+.header__link-img_type_colored {
   background-color: #000;
 }
 
-.header__link-img_colored::before {
+.header__link-img_type_colored::before {
   background-image: url(../../images/accLogo2.svg);
 }
 

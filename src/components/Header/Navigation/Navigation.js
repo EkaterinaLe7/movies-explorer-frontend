@@ -53,7 +53,7 @@ function Navigation({ isOpen, onClose }) {
           Аккаунт
           <div className="navigation__link-img"></div>
         </NavLink>
-        <div className="navigation__button-close" onClick={onClose}></div>
+        <button className="navigation__button-close" onClick={onClose}></button>
       </nav>
     </div>
   );

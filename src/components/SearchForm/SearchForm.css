@@ -46,7 +46,6 @@
   width: 22px;
   height: 22px;
   position: absolute;
-  top: center;
   left: 25px;
 }
 
@@ -153,7 +152,6 @@
 
 @media screen and (max-width: 400px) {
   .search {
-    /* padding-bottom: 44px; */
     padding-left: 10px;
     padding-right: 10px;
   }

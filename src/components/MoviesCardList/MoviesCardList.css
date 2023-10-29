@@ -30,7 +30,6 @@
   border: none;
   width: 320px;
   height: 36px;
-  font-family: Inter;
   font-size: 12px;
   font-weight: 500;
   line-height: 15px;
@@ -74,8 +73,4 @@
   .cards__list {
     column-gap: 20px;
   }
-
-  /* .cards__btn-container {
-    margin: 61px 0 89px;
-  } */
 }
