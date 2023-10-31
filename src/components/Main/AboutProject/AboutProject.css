@@ -1,0 +1,137 @@
+.about-project {
+  padding: 110px 70px;
+  box-sizing: border-box;
+}
+
+.about-project__info-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 40px;
+  margin-top: 70px;
+}
+
+.about-project__subtitle {
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: -0.04em;
+  text-align: left;
+  margin: 0 0 26px;
+}
+
+.about-project__text {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0em;
+  text-align: left;
+  margin: 0;
+}
+
+.about-project__duration {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  margin: 110px 0 0;
+}
+
+.about-project__time {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 17px;
+  letter-spacing: 0em;
+  text-align: center;
+  padding: 9px 0;
+  margin: 0;
+  background-color: #f2f2f2;
+}
+
+.about-project__time_color_black {
+  color: #fff;
+  background-color: #000;
+}
+
+.about-project__caption {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 17px;
+  letter-spacing: 0px;
+  text-align: center;
+  color: #a0a0a0;
+  margin: 0;
+  padding-top: 14px;
+}
+
+@media screen and (max-width: 800px) {
+  .about-project {
+    padding: 90px 50px;
+  }
+
+  .about-project__info-container {
+    column-gap: 30px;
+  }
+
+  .about-project__subtitle {
+    margin-bottom: 22px;
+  }
+
+  .about-project__text {
+    font-size: 12px;
+    line-height: 18px;
+  }
+
+  .about-project__duration {
+    margin-top: 93px;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .about-project__duration {
+    grid-template-columns: 1fr 2fr;
+    margin-top: 80px;
+  }
+
+  .about-project__time {
+    font-size: 11px;
+    line-height: 13px;
+    padding: 11px 0;
+  }
+
+  .about-project__caption {
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 13px;
+    padding-top: 10px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .about-project {
+    padding: 70px 18px;
+  }
+
+  .about-project__info-container {
+    display: block;
+    margin-top: 60px;
+  }
+
+  .about-project__info:first-child {
+    margin-bottom: 56px;
+  }
+
+  .about-project__subtitle {
+    font-size: 18px;
+    line-height: 22px;
+    margin-bottom: 16px;
+  }
+
+  .about-project__duration {
+    margin-top: 60px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .about-project__text {
+    font-size: 11px;
+    line-height: 16px;
+  }
+}
