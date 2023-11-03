@@ -11,6 +11,9 @@ function AuthForm({ isLoading, title, children, buttonText }) {
       </div>
       <form className="auth__form" method="post" name="register">
         <div className="auth__wrapper">{children}</div>
+        <span className="profile__error">
+                При обновлении профиля произошла ошибка.
+              </span>
         <button className="auth__button" type="submit">
           {`${isLoading ? "Отправка..." : buttonText}`}
         </button>
