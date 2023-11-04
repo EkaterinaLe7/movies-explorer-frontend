@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./Profile.css";
 import Header from "../../Header/Header";
 
-function Profile({ isLoading = false, loggedIn }) {
+function Profile({ isLoading = false, loggedIn, onSignOut }) {
   const [currentUser] = useState({
     name: "Виталий",
     email: "pochta@yandex.ru",
@@ -101,7 +101,7 @@ function Profile({ isLoading = false, loggedIn }) {
               >
                 Редактировать
               </button>
-              <button className="profile__btn profile__btn_type_logout">
+              <button className="profile__btn profile__btn_type_logout" onClick={onSignOut}>
                 Выйти из аккаунта
               </button>
             </>

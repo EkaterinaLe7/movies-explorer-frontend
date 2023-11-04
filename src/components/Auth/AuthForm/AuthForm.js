@@ -2,14 +2,14 @@ import React from "react";
 import "./AuthForm.css";
 import Logo from "../../Logo/Logo";
 
-function AuthForm({ isLoading, title, children, buttonText }) {
+function AuthForm({ isLoading, title, name, children, buttonText, handleSubmit }) {
   return (
     <div className="auth">
       <div className="auth__container">
         <Logo />
         <h2 className="auth__title">{title}</h2>
       </div>
-      <form className="auth__form" method="post" name="register">
+      <form className="auth__form" method="post" name={name} onSubmit={handleSubmit}>
         <div className="auth__wrapper">{children}</div>
         <span className="profile__error">
                 При обновлении профиля произошла ошибка.
