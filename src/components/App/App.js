@@ -1,9 +1,8 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import "./App.css";
-import Header from "../Header/Header";
 import Main from "../Main/Main";
-import Footer from "../Footer/Footer";
 import Movies from "../Movies/Movies";
 import SavedMovies from "../SavedMovies/SavedMovies";
 import Profile from "../Auth/Profile/Profile";
@@ -15,47 +14,23 @@ import okSign from "../../images/OkSign.svg";
 // import notOkSign from "../../images/notOkSign.svg";
 
 function App() {
+  const [loggedIn, setLoggedIn] = useState(false);
+
   return (
     <div className="page">
       <Routes>
-        <Route
-          path="/"
-          element={
-            <>
-              <Header isMainPage={true} />
-              <Main />
-              <Footer />
-            </>
-          }
-        />
+        <Route path="/" element={<Main loggedIn={loggedIn} />} />
         <Route
           path="/movies"
-          element={
-            <>
-              <Header />
-              <Movies />
-              <Footer />
-            </>
-          }
+          element={<ProtectedRoute element={Movies} loggedIn={loggedIn} />}
         />
         <Route
           path="/saved-movies"
-          element={
-            <>
-              <Header />
-              <SavedMovies />
-              <Footer />
-            </>
-          }
+          element={<ProtectedRoute element={SavedMovies} loggedIn={loggedIn} />}
         />
         <Route
           path="/profile"
-          element={
-            <>
-              <Header />
-              <Profile />
-            </>
-          }
+          element={<ProtectedRoute element={Profile} loggedIn={loggedIn} />}
         />
         <Route path="/signup" element={<Register />} />
         <Route path="/signin" element={<Login />} />

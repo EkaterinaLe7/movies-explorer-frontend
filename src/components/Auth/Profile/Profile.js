@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import "./Profile.css";
+import Header from "../../Header/Header";
 
-function Profile({ isLoading = false }) {
+function Profile({ isLoading = false, loggedIn }) {
   const [currentUser] = useState({
     name: "Виталий",
     email: "pochta@yandex.ru",
@@ -31,6 +32,8 @@ function Profile({ isLoading = false }) {
   }
 
   return (
+    <>
+    <Header loggedIn={loggedIn} />
     <main className="profile">
       <h2 className="profile__title">Привет, {currentUser.name}!</h2>
       <form className="profile__form">
@@ -106,6 +109,7 @@ function Profile({ isLoading = false }) {
         </div>
       </form>
     </main>
+    </>
   );
 }
 
