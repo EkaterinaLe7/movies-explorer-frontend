@@ -21,20 +21,24 @@ function App() {
   const [infoTooltipSign, setInfoTooltipSign] = useState("");
   const [infoTooltipText, setInfoTooltipText] = useState("");
   const [isLoadingSubmit, setIsLoadingSubmit] = useState(false);
+  const [isLoadingProfile, setIsLoadingProfile] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
+  const [isEdit, setIsEdit] = useState(false);
+  const [isAppIsReady, setIsAppIsReady] = useState(false);
 
   const navigate = useNavigate();
 
   const checkToken = () => {
     const jwt = localStorage.getItem("jwt");
-    if (localStorage.getItem("jwt")) {
+    if (jwt) {
       api
         .getUserInfo(jwt)
         .then((res) => {
           if (res) {
             // авторизуем пользователя
             setLoggedIn(true);
-            navigate("/movies", { replace: true });
+            setIsAppIsReady(true);
+            // navigate("/movies", { replace: true });
           }
         })
         .catch((err) => console.log(err));
@@ -77,13 +81,17 @@ function App() {
       .catch((err) => {
         console.log(err);
         setInfoTooltipSign(notOkSign);
-        setInfoTooltipText("Что-то пошло не так! Попробуйте еще раз.");
+        // setInfoTooltipText("Что-то пошло не так! Попробуйте еще раз.");
+        // setInfoTooltipText(err);
+        handleErrorsUser(err);
       })
       .finally(() => {
         setIsInfoTooltipPopupOpen(true);
         setIsLoadingSubmit(false);
       });
   };
+
+
 
   const onLogin = (email, password) => {
     return api
@@ -95,12 +103,60 @@ function App() {
       .catch((err) => {
         console.log(err);
         setInfoTooltipSign(notOkSign);
-        setInfoTooltipText("Неверный логин или пароль");
+        // setInfoTooltipText("Неверный логин или пароль");
+        handleErrorsUser(err);
         setIsInfoTooltipPopupOpen(true);
       });
   };
-  
 
+  const handleUpdateUser = (data) => {
+    setIsLoadingProfile(true);
+    return (
+      api
+        .setUserInfo(data)
+        .then((data) => {
+          setInfoTooltipSign(okSign);
+          setInfoTooltipText("Данные обновлены");
+          setCurrentUser(data);
+          handleEditOff();
+        })
+        // .then(setCurrentUser)
+        // .catch(console.error)
+        .catch((err) => {
+          console.log(err);
+          setInfoTooltipSign(notOkSign);
+          // setInfoTooltipText(err);
+          handleErrorsUser(err);
+          setIsInfoTooltipPopupOpen(true);
+        })
+        .finally(() => {
+          setIsLoadingProfile(false);
+          setIsInfoTooltipPopupOpen(true);
+        })
+    );
+  };
+
+  const handleErrorsUser = (err) => {
+    if (err === 'Ошибка: 409') {
+      setInfoTooltipText("Пользователь с таким email уже существует")
+    } else if (err === 'Ошибка: 400') {
+      setInfoTooltipText("Переданы некорректные данные")
+    } else if (err === 'Ошибка: 401') {
+      setInfoTooltipText("Неверный логин или пароль")
+    } else if (err === 'Ошибка: 404') {
+      setInfoTooltipText("Пользователь не найден")
+    } else {
+      setInfoTooltipText("На сервере произошла ошибка")
+    }
+  }
+
+  function handleEditOn() {
+    setIsEdit(true);
+  }
+
+  function handleEditOff() {
+    setIsEdit(false);
+  }
 
   const signOut = () => {
     if (!localStorage.getItem("jwt")) return;
@@ -114,7 +170,8 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
-        <Routes>
+        {isAppIsReady && <>
+          <Routes>
           <Route path="/" element={<Main loggedIn={loggedIn} />} />
           <Route
             path="/movies"
@@ -128,7 +185,18 @@ function App() {
           />
           <Route
             path="/profile"
-            element={<ProtectedRoute element={Profile} loggedIn={loggedIn} onSignOut={signOut} />}
+            element={
+              <ProtectedRoute
+                element={Profile}
+                loggedIn={loggedIn}
+                isLoading={isLoadingProfile}
+                onUpdateUser={handleUpdateUser}
+                onSignOut={signOut}
+                isEdit={isEdit}
+                handleEditOn={handleEditOn}
+                handleEditOff={handleEditOff}
+              />
+            }
           />
           <Route
             path="/signup"
@@ -148,6 +216,8 @@ function App() {
           isOpen={isInfoTooltipPopupOpen}
           onClose={closePopup}
         />
+        </>}
+        
       </div>
     </CurrentUserContext.Provider>
   );

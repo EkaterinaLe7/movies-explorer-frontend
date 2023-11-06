@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
+import isEmail from 'validator/es/lib/isEmail';
 
 export function useForm(inputValues={}) {
     const [values, setValues] = useState(inputValues);
@@ -9,4 +10,40 @@ export function useForm(inputValues={}) {
     //   setValues({...values, [event.target.name]: event.target.value});
     };
     return {values, handleChange, setValues};
+  }
+
+
+  export function useFormWithValidation() {
+    const [values, setValues] = useState({});
+    const [errors, setErrors] = useState({});
+    const [isValid, setIsValid] = useState(false);
+  
+    const handleChange = (event) => {
+      const target = event.target;
+      const name = target.name;
+      const value = target.value;
+
+      if (name === 'name' && event.target.validity.patternMismatch) {
+        event.target.setCustomValidity("Имя должно содержать минимум 2 буквы, только латиницу, кириллицу, пробел или дефис.");
+      } else if (name === 'email' && !isEmail(value)) {
+        event.target.setCustomValidity("Необходимо заполнить поле, используя верный формат почты.");
+      } else {
+        event.target.setCustomValidity('');
+      }
+
+      setValues({...values, [name]: value});
+      setErrors({...errors, [name]: target.validationMessage });
+      setIsValid(target.closest("form").checkValidity());
+    };
+  
+    const resetForm = useCallback(
+      (newValues = {}, newErrors = {}, newIsValid = false) => {
+        setValues(newValues);
+        setErrors(newErrors);
+        setIsValid(newIsValid);
+      },
+      [setValues, setErrors, setIsValid]
+    );
+  
+    return { values, handleChange, errors, isValid, resetForm };
   }
