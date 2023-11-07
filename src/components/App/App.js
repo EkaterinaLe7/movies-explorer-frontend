@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route, useNavigate, useLocation  } from "react-router-dom";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import "./App.css";
 import Main from "../Main/Main";
@@ -27,9 +27,11 @@ function App() {
   const [isAppIsReady, setIsAppIsReady] = useState(false);
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   const checkToken = () => {
     const jwt = localStorage.getItem("jwt");
+    // const path = location.pathname;
     if (jwt) {
       api
         .getUserInfo(jwt)
@@ -39,6 +41,7 @@ function App() {
             setLoggedIn(true);
             setIsAppIsReady(true);
             // navigate("/movies", { replace: true });
+          
           }
         })
         .catch((err) => console.log(err));
@@ -168,15 +171,20 @@ function App() {
   };
 
   return (
+ 
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
-        {isAppIsReady && <>
+      
+          
           <Routes>
           <Route path="/" element={<Main loggedIn={loggedIn} />} />
-          <Route
-            path="/movies"
-            element={<ProtectedRoute element={Movies} loggedIn={loggedIn} />}
-          />
+          {isAppIsReady && (
+                    <Route
+                    path="/movies"
+                    element={<ProtectedRoute element={Movies} loggedIn={loggedIn} />}
+                  />
+          )}
+  
           <Route
             path="/saved-movies"
             element={
@@ -216,10 +224,11 @@ function App() {
           isOpen={isInfoTooltipPopupOpen}
           onClose={closePopup}
         />
-        </>}
+           
         
       </div>
-    </CurrentUserContext.Provider>
+      </CurrentUserContext.Provider>
+    
   );
 }
 

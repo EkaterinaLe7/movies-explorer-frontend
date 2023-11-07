@@ -46,18 +46,19 @@
   letter-spacing: 0em;
   text-align: left;
   color: #ff4062;
-  margin-top: 10px;
-  min-height: 10px;
-  opacity: 0;
+  margin-top: 4px;
+  margin-bottom: 4px;
+  min-height: 24px;
+  /* opacity: 0; */
 }
 
-.login__error_visible {
+/* .login__error_visible {
   opacity: 1;
-}
+} */
 
 .login__input_type_error {
   color: #ff4062;
-  /* border: 2px solid #ff4062; */
+  outline-color: #ff4062;
 }
 
 .login__link-text {

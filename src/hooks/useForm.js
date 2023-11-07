@@ -1,16 +1,16 @@
 import { useState, useCallback } from "react";
 import isEmail from 'validator/es/lib/isEmail';
 
-export function useForm(inputValues={}) {
-    const [values, setValues] = useState(inputValues);
+// export function useForm(inputValues={}) {
+//     const [values, setValues] = useState(inputValues);
   
-    const handleChange = (event) => {
-      const {value, name} = event.target;
-      setValues({...values, [name]: value});
-    //   setValues({...values, [event.target.name]: event.target.value});
-    };
-    return {values, handleChange, setValues};
-  }
+//     const handleChange = (event) => {
+//       const {value, name} = event.target;
+//       setValues({...values, [name]: value});
+//     //   setValues({...values, [event.target.name]: event.target.value});
+//     };
+//     return {values, handleChange, setValues};
+//   }
 
 
   export function useFormWithValidation() {
@@ -24,9 +24,9 @@ export function useForm(inputValues={}) {
       const value = target.value;
 
       if (name === 'name' && event.target.validity.patternMismatch) {
-        event.target.setCustomValidity("Имя должно содержать минимум 2 буквы, только латиницу, кириллицу, пробел или дефис.");
+        event.target.setCustomValidity("Заполните поле, используя минимум 2 знака (только буквы, пробел или дефис).");
       } else if (name === 'email' && !isEmail(value)) {
-        event.target.setCustomValidity("Необходимо заполнить поле, используя верный формат почты.");
+        event.target.setCustomValidity("Заполните поле, используя верный формат почты.");
       } else {
         event.target.setCustomValidity('');
       }

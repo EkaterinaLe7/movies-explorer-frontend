@@ -43,18 +43,19 @@
   letter-spacing: 0em;
   text-align: left;
   color: #ff4062;
-  margin-top: 10px;
-  min-height: 10px;
+  margin-top: 4px;
+  margin-bottom: 4px;
+  min-height: 24px;
   /* opacity: 0; */
 }
 
-.register__error_visible {
+/* .register__error_visible {
   opacity: 1;
-}
+} */
 
 .register__input_type_error {
   color: #ff4062;
-  /* border: 2px solid #ff4062; */
+  outline-color: #ff4062;
 }
 
 .register__link-text {

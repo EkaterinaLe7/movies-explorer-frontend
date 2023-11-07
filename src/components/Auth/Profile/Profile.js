@@ -138,8 +138,6 @@ function Profile({ loggedIn, isLoading, onUpdateUser, onSignOut, isEdit, handleE
               required
               minLength={2}
               maxLength={40}
-              // pattern="^\w+([\\.-]?\\w+)*@\\w+([\\.-]?\w+)*(\.\w{2,3})+$"
-              // pattern="^[\\-a-z0-9!#$%&'*+/=?^_`{|}~]+(.[\\-a-z0-9!#$%&'*+/=?^_`{|}~]+)*@([a-z0-9]([\\-a-z0-9]{0,61}[a-z0-9])?.)*(aero|arpa|asia|biz|cat|com|coop|edu|gov|info|int|jobs|mil|mobi|museum|name|net|org|pro|tel|travel|[a-z][a-z])$"
               onFocus={handleFocusEmail}
               onBlur={handleBlurEmail}
               onChange={handleChange}
