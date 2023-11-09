@@ -24,10 +24,10 @@ function App() {
   const [isLoadingProfile, setIsLoadingProfile] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
   const [isEdit, setIsEdit] = useState(false);
-  const [isAppIsReady, setIsAppIsReady] = useState(false);
+  // const [isAppIsReady, setIsAppIsReady] = useState(false);
 
   const navigate = useNavigate();
-  const location = useLocation();
+  // const location = useLocation();
 
   const checkToken = () => {
     const jwt = localStorage.getItem("jwt");
@@ -39,7 +39,7 @@ function App() {
           if (res) {
             // авторизуем пользователя
             setLoggedIn(true);
-            setIsAppIsReady(true);
+            // setIsAppIsReady(true);
             // navigate("/movies", { replace: true });
           
           }
@@ -164,6 +164,10 @@ function App() {
   const signOut = () => {
     if (!localStorage.getItem("jwt")) return;
     localStorage.removeItem("jwt");
+    localStorage.removeItem("searchedMovies");
+    localStorage.removeItem("searchTextQuery");
+    localStorage.removeItem("filterCheck");
+    localStorage.removeItem("allMovies");
     setLoggedIn(false);
     // localStorage.clear();
 
@@ -178,13 +182,13 @@ function App() {
           
           <Routes>
           <Route path="/" element={<Main loggedIn={loggedIn} />} />
-          {isAppIsReady && (
-                    <Route
-                    path="/movies"
-                    element={<ProtectedRoute element={Movies} loggedIn={loggedIn} />}
-                  />
-          )}
-  
+          {/* {isAppIsReady && (
+            <></>
+          )} */}
+          <Route
+            path="/movies"
+            element={<ProtectedRoute element={Movies} loggedIn={loggedIn} />}
+          />
           <Route
             path="/saved-movies"
             element={

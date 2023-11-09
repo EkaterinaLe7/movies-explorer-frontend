@@ -1,9 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./SearchForm.css";
 import FilterCheckbox from "./FilterCheckbox/FilterCheckbox";
 
-function SearchForm() {
+function SearchForm({onSearchSubmit, onCheck, isFilterChecked, searchText, isError}) {
   const [isFocused, setIsFocused] = useState(false);
+  const [keyWords, setkeyWords] = useState("");
+  const [isSearchError, setIsSearchError] = useState(false);
+
+  useEffect(() => {
+    setkeyWords(searchText)
+  }, [searchText]);
 
   function handleFocus() {
     setIsFocused(true);
@@ -12,9 +18,29 @@ function SearchForm() {
   function handleBlur() {
     setIsFocused(false);
   }
+
+  function handleChange(evt) {
+    setkeyWords(evt.target.value);
+  }
+
+  function handleSubmit(evt) {
+    evt.preventDefault();
+    // if (query.trim().length === 0) {
+    //   setIsQueryError(true);
+    // } else {
+    //   setIsQueryError(false);
+      onSearchSubmit(keyWords);
+      
+    // }
+  }
+
   return (
     <section className="search">
+      
       <div className="search__wrapper">
+      <span className={`search__error ${
+              isError ? "search__error_showned" : ""
+            } `}>Нужно ввести ключевое слово</span>
         <div
           className={`search__container ${
             isFocused ? "search__container_focused" : ""
@@ -24,6 +50,7 @@ function SearchForm() {
             className={`search__form ${
               isFocused ? "search__form_focused" : ""
             } `}
+            onSubmit={handleSubmit}
           >
             <label className="search__label">
               <input
@@ -35,14 +62,20 @@ function SearchForm() {
                 onFocus={handleFocus}
                 onBlur={handleBlur}
                 required
+                onChange={handleChange}
+                value={keyWords}
               />
             </label>
-            <button className="search__button" type="submit">
+            
+            <button className="search__button" type="submit" onClick={handleSubmit}>
               Найти
             </button>
           </form>
-          <FilterCheckbox />
+         
+          <FilterCheckbox isFilterChecked={isFilterChecked} onCheck={onCheck} />
+          
         </div>
+        
       </div>
     </section>
   );

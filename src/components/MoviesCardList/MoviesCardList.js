@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import "./MoviesCardList.css";
 import MoviesCard from "../MoviesCard/MoviesCard";
 import { useLocation } from "react-router-dom";
-import Preloader from "../Preloader/Preloader";
 
-function MoviesCardList({ cards, isLoading = false }) {
+
+function MoviesCardList({ cards }) {
   const location = useLocation();
 
   const [isSaved, setIsSaved] = useState(false);
+  const [errorText, setErrorText] = useState("");
 
   function handleSave() {
     setIsSaved(true);
@@ -19,21 +20,15 @@ function MoviesCardList({ cards, isLoading = false }) {
 
   return (
     <section className="cards" aria-label="Фильмы">
-      {isLoading ? (
-        <Preloader />
-      ) : (
-        <>
-          {cards.length === 0 ? (
-            <h2 className="cards__message">Фильмов не найдено</h2>
-          ) : (
             <>
               <ul className="cards__list">
                 {cards.map((card) => (
                   <MoviesCard
                     key={card.id}
-                    name={card.name}
-                    image={card.image}
-                    duration={card.duration}
+                    card={card}
+                    // name={card.name}
+                    // image={card.image}
+                    // duration={card.duration}
                     isSaved={isSaved}
                     onSave={handleSave}
                     onDelete={handleDelete}
@@ -46,9 +41,6 @@ function MoviesCardList({ cards, isLoading = false }) {
                 </div>
               )}
             </>
-          )}
-        </>
-      )}
     </section>
   );
 }

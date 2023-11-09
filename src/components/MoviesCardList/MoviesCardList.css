@@ -1,12 +1,13 @@
 .cards {
   padding: 80px 70px 0;
+  min-height: 30vh;
 }
 
-.cards__message {
+/* .cards__message {
   color: #000;
   margin: 5px auto;
   text-align: center;
-}
+} */
 
 .cards__list {
   display: grid;
