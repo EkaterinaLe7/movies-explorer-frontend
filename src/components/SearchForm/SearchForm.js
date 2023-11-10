@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./SearchForm.css";
 import FilterCheckbox from "./FilterCheckbox/FilterCheckbox";
 
-function SearchForm({onSearchSubmit, onCheck, isFilterChecked, searchText, isError}) {
+function SearchForm({onSearchSubmit, onCheck, isFilterChecked, searchText}) {
   const [isFocused, setIsFocused] = useState(false);
   const [keyWords, setkeyWords] = useState("");
   const [isSearchError, setIsSearchError] = useState(false);
@@ -25,13 +25,13 @@ function SearchForm({onSearchSubmit, onCheck, isFilterChecked, searchText, isErr
 
   function handleSubmit(evt) {
     evt.preventDefault();
-    // if (query.trim().length === 0) {
-    //   setIsQueryError(true);
-    // } else {
-    //   setIsQueryError(false);
+    if (keyWords.trim().length === 0) {
+      setIsSearchError(true);
+    } else {
+      setIsSearchError(false);
       onSearchSubmit(keyWords);
       
-    // }
+    }
   }
 
   return (
@@ -39,7 +39,7 @@ function SearchForm({onSearchSubmit, onCheck, isFilterChecked, searchText, isErr
       
       <div className="search__wrapper">
       <span className={`search__error ${
-              isError ? "search__error_showned" : ""
+              isSearchError ? "search__error_showned" : ""
             } `}>Нужно ввести ключевое слово</span>
         <div
           className={`search__container ${

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Routes, Route, useNavigate, useLocation  } from "react-router-dom";
+import { Routes, Route, useNavigate, Navigate } from "react-router-dom";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import "./App.css";
 import Main from "../Main/Main";
@@ -10,8 +10,10 @@ import Register from "../Auth/Register/Register";
 import Login from "../Auth/Login/Login";
 import PageNotFound from "../PageNotFound/PageNotFound";
 import InfoTooltip from "../InfoTooltip/InfoTooltip";
+import Preloader from "../Preloader/Preloader";
 import okSign from "../../images/OkSign.svg";
 import notOkSign from "../../images/notOkSign.svg";
+import {handleErrorsUser} from "../../utils/utils"
 import * as api from "../../utils/MainApi";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
 
@@ -24,14 +26,12 @@ function App() {
   const [isLoadingProfile, setIsLoadingProfile] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
   const [isEdit, setIsEdit] = useState(false);
-  // const [isAppIsReady, setIsAppIsReady] = useState(false);
+  const [isAppIsReady, setIsAppIsReady] = useState(false);
 
   const navigate = useNavigate();
-  // const location = useLocation();
 
   const checkToken = () => {
     const jwt = localStorage.getItem("jwt");
-    // const path = location.pathname;
     if (jwt) {
       api
         .getUserInfo(jwt)
@@ -39,17 +39,27 @@ function App() {
           if (res) {
             // авторизуем пользователя
             setLoggedIn(true);
-            // setIsAppIsReady(true);
+            setIsAppIsReady(true);
             // navigate("/movies", { replace: true });
           
           }
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {console.log(err)})
+        // .finally(() => {
+        //   setIsAppIsReady(false);
+        // });
     }
   };
 
   useEffect(() => {
-    checkToken();
+    checkToken()
+    // if (checkToken()) {
+    //   setIsAppIsReady(true)
+    // } else {
+    //   setIsAppIsReady(false)
+    // }
+    
+    
   }, []);
 
   useEffect(() => {
@@ -62,8 +72,11 @@ function App() {
         //   setCards(cardsArray.reverse());
         //   setCurrentUser(userData);
         // })
-        .then(setCurrentUser)
-        .catch(console.error);
+        
+        .then((userData) => {
+          setCurrentUser(userData)
+        })
+        .catch(console.error)
     }
   }, [loggedIn]);
 
@@ -86,7 +99,7 @@ function App() {
         setInfoTooltipSign(notOkSign);
         // setInfoTooltipText("Что-то пошло не так! Попробуйте еще раз.");
         // setInfoTooltipText(err);
-        handleErrorsUser(err);
+        handleErrorsUser(err, setInfoTooltipText);
       })
       .finally(() => {
         setIsInfoTooltipPopupOpen(true);
@@ -107,7 +120,7 @@ function App() {
         console.log(err);
         setInfoTooltipSign(notOkSign);
         // setInfoTooltipText("Неверный логин или пароль");
-        handleErrorsUser(err);
+        handleErrorsUser(err, setInfoTooltipText);
         setIsInfoTooltipPopupOpen(true);
       });
   };
@@ -129,7 +142,7 @@ function App() {
           console.log(err);
           setInfoTooltipSign(notOkSign);
           // setInfoTooltipText(err);
-          handleErrorsUser(err);
+          handleErrorsUser(err, setInfoTooltipText);
           setIsInfoTooltipPopupOpen(true);
         })
         .finally(() => {
@@ -139,19 +152,14 @@ function App() {
     );
   };
 
-  const handleErrorsUser = (err) => {
-    if (err === 'Ошибка: 409') {
-      setInfoTooltipText("Пользователь с таким email уже существует")
-    } else if (err === 'Ошибка: 400') {
-      setInfoTooltipText("Переданы некорректные данные")
-    } else if (err === 'Ошибка: 401') {
-      setInfoTooltipText("Неверный логин или пароль")
-    } else if (err === 'Ошибка: 404') {
-      setInfoTooltipText("Пользователь не найден")
-    } else {
-      setInfoTooltipText("На сервере произошла ошибка")
-    }
+
+  const renderPreloader = () => {
+    return (
+<Preloader />
+    )
   }
+
+
 
   function handleEditOn() {
     setIsEdit(true);
@@ -178,14 +186,9 @@ function App() {
  
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
-      
-          
-          <Routes>
-          <Route path="/" element={<Main loggedIn={loggedIn} />} />
-          {/* {isAppIsReady && (
-            <></>
-          )} */}
-          <Route
+      {/* {!isAppIsReady ? renderPreloader() : <> */}
+        <Routes>
+      <Route
             path="/movies"
             element={<ProtectedRoute element={Movies} loggedIn={loggedIn} />}
           />
@@ -210,18 +213,29 @@ function App() {
               />
             }
           />
+          
+          <Route path="/" element={<Main loggedIn={loggedIn} /> } />
           <Route
             path="/signup"
-            element={
-              <Register isLoading={isLoadingSubmit} onRegister={onRegister} />
-            }
+            element={<>
+              {!loggedIn ? <Register isLoading={isLoadingSubmit} onRegister={onRegister} /> : <Navigate to="/" replace />}
+              </>} 
+            // element={
+            //   <Register isLoading={isLoadingSubmit} onRegister={onRegister} />
+            // }
           />
           <Route
             path="/signin"
-            element={<Login isLoading={isLoadingSubmit} onLogin={onLogin} />}
+                        element={<>
+              {!loggedIn ? <Login isLoading={isLoadingSubmit} onLogin={onLogin} /> : <Navigate to="/" replace />}
+              </>}
+            // element={<Login isLoading={isLoadingSubmit} onLogin={onLogin} />}
           />
           <Route path="/*" element={<PageNotFound />} />
         </Routes>
+      {/* </>} */}
+      
+          
         <InfoTooltip
           sign={infoTooltipSign}
           text={infoTooltipText}

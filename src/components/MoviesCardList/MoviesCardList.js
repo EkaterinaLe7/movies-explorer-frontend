@@ -1,18 +1,59 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import "./MoviesCardList.css";
 import MoviesCard from "../MoviesCard/MoviesCard";
 import { useLocation } from "react-router-dom";
+import { useResize } from "../../hooks/useResize";
+import { DISPLAYED_CARDS_L, DISPLAYED_CARDS_M, DISPLAYED_CARDS_S, ADDITIONAL_CARDS_L, ADDITIONAL_CARDS_M, ADDITIONAL_CARDS_S } from '../../utils/constants';
 
 
 function MoviesCardList({ cards }) {
+  const { isScreenLarge, isScreenMedium, isScreenSmall } = useResize();
   const location = useLocation();
 
   const [isSaved, setIsSaved] = useState(false);
-  const [errorText, setErrorText] = useState("");
+  const [count, setCount] = useState(0);
+  // const [errorText, setErrorText] = useState("");
+
+  // function handleCardsShow () {
+  //   if (isScreenLarge) {
+  //     setCount(12);
+  //   } else if (isScreenMedium) {
+  //     setCount(8);
+  //   } else if (isScreenSmall) {
+  //     setCount(5);
+  //   }
+  // }
+
+  const handleCardsShow = useCallback(
+    () => {
+      if (isScreenLarge) {
+        setCount(DISPLAYED_CARDS_L);
+      } else if (isScreenMedium) {
+        setCount(DISPLAYED_CARDS_M);
+      } else if (isScreenSmall) {
+        setCount(DISPLAYED_CARDS_S);
+      }
+    },
+    [isScreenLarge, isScreenMedium, isScreenSmall]
+  );
+
+  useEffect(() => {
+    handleCardsShow();
+  }, [handleCardsShow, cards]);
 
   function handleSave() {
     setIsSaved(true);
   }
+
+function addCards() {
+  if (isScreenLarge) {
+    setCount(count + ADDITIONAL_CARDS_L);
+  } else if (isScreenMedium) {
+    setCount(count + ADDITIONAL_CARDS_M);
+  } else if (isScreenSmall) {
+    setCount(count + ADDITIONAL_CARDS_S);
+  }
+}
 
   function handleDelete() {
     setIsSaved(false);
@@ -20,9 +61,10 @@ function MoviesCardList({ cards }) {
 
   return (
     <section className="cards" aria-label="Фильмы">
-            <>
+      {location.pathname === "/movies" && (
+        <>
               <ul className="cards__list">
-                {cards.map((card) => (
+                {cards.slice(0, count).map((card) => (
                   <MoviesCard
                     key={card.id}
                     card={card}
@@ -35,12 +77,14 @@ function MoviesCardList({ cards }) {
                   />
                 ))}
               </ul>
-              {location.pathname === "/movies" && (
+              {cards.length > count && (
                 <div className="cards__btn-container">
-                  <button className="cards__button">Ещё</button>
+                  <button className="cards__button" onClick={addCards} >Ещё</button>
                 </div>
               )}
             </>
+      )}
+            
     </section>
   );
 }
