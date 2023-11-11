@@ -36,13 +36,17 @@ export const authorize = (email, password) => {
     });
 };
 
-export const getUserInfo = (token) => {
+export const getUserInfo = () => {
   return fetch(`${BASE_URL}/users/me`, {
     method: "GET",
+    // headers: {
+    //   Accept: "application/json",
+    //   "Content-Type": "application/json",
+    //   Authorization: `Bearer ${token}`,
+    // },
     headers: {
-      Accept: "application/json",
+      authorization: `Bearer ${localStorage.getItem('jwt')}`,
       "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
     },
   }).then(getResponse);
 };
@@ -66,4 +70,51 @@ export const setUserInfo = (data) => {
     },
     body: JSON.stringify(data),
   }).then(getResponse);
+}
+
+export const createCard = (data) => {
+  return fetch(`${BASE_URL}/movies`, {
+    method: "POST",
+    headers: {
+      authorization: `Bearer ${localStorage.getItem('jwt')}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      country: data.country,
+      director: data.director,
+      duration: data.duration,
+      year: data.year,
+      description: data.description,
+      image: `https://api.nomoreparties.co${data.image.url}`,
+      trailerLink: data.trailerLink,
+      thumbnail: `https://api.nomoreparties.co${data.image.formats.thumbnail.url}`,
+      movieId: data.id,
+      nameRU: data.nameRU,
+      nameEN: data.nameEN,
+    }),
+  }).then(getResponse);
+}
+
+export const getCards = () => {
+  return fetch(`${BASE_URL}/movies`, {
+    method: "GET",
+    headers: {
+      authorization: `Bearer ${localStorage.getItem('jwt')}`,
+      "Content-Type": "application/json",
+    },
+  }).then(getResponse);
+}
+
+export const deleteCard = (id) => {
+  return fetch(`${BASE_URL}/movies/${id}`, {
+    method: "DELETE",
+    headers: {
+      authorization: `Bearer ${localStorage.getItem('jwt')}`,
+      "Content-Type": "application/json",
+    },
+  }).then(getResponse);
+}
+
+export const getAppInfo = () => {
+  return Promise.all([getCards(), getUserInfo()]);
 }

@@ -6,12 +6,12 @@ import { useResize } from "../../hooks/useResize";
 import { DISPLAYED_CARDS_L, DISPLAYED_CARDS_M, DISPLAYED_CARDS_S, ADDITIONAL_CARDS_L, ADDITIONAL_CARDS_M, ADDITIONAL_CARDS_S } from '../../utils/constants';
 
 
-function MoviesCardList({ cards }) {
-  const { isScreenLarge, isScreenMedium, isScreenSmall } = useResize();
+function MoviesCardList({ cards, onSaveCard, isSavedMoviesRoute, savedCards, onDeleteCard }) {
+  const { isScreenLarge, isScreenMedium, isScreenSmall, width } = useResize();
   const location = useLocation();
 
-  const [isSaved, setIsSaved] = useState(false);
   const [count, setCount] = useState(0);
+  const [isSaved, setIsSaved] = useState(0);
   // const [errorText, setErrorText] = useState("");
 
   // function handleCardsShow () {
@@ -39,11 +39,8 @@ function MoviesCardList({ cards }) {
 
   useEffect(() => {
     handleCardsShow();
-  }, [handleCardsShow, cards]);
+  }, [handleCardsShow, cards, width]);
 
-  function handleSave() {
-    setIsSaved(true);
-  }
 
 function addCards() {
   if (isScreenLarge) {
@@ -55,9 +52,16 @@ function addCards() {
   }
 }
 
-  function handleDelete() {
-    setIsSaved(false);
-  }
+// function checkSavedCard(card) {
+//   // savedCards.some((savedCard) => { return savedCard.movieId === card.movieId})
+//   const isSaved = savedCards.some(
+//     (savedMovie) => savedMovie.movieId === card.movieId
+//   );
+
+//   return isSaved;
+// }
+
+
 
   return (
     <section className="cards" aria-label="Фильмы">
@@ -68,12 +72,11 @@ function addCards() {
                   <MoviesCard
                     key={card.id}
                     card={card}
-                    // name={card.name}
-                    // image={card.image}
-                    // duration={card.duration}
-                    isSaved={isSaved}
-                    onSave={handleSave}
-                    onDelete={handleDelete}
+                    onSaveCard={onSaveCard}
+                    savedCards={savedCards}
+                    onDeleteCard={onDeleteCard}
+                    // isSaved={checkSavedCard(card)}
+                    isSaved={savedCards.some((savedCard) => savedCard.movieId === card.id)}
                   />
                 ))}
               </ul>
@@ -82,6 +85,25 @@ function addCards() {
                   <button className="cards__button" onClick={addCards} >Ещё</button>
                 </div>
               )}
+            </>
+      )}
+
+{location.pathname === "/saved-movies" && (
+        <>
+              <ul className="cards__list">
+                {cards.map((card) => (
+                  <MoviesCard
+                    key={card._id}
+                    card={card}
+                    onDeleteCard={onDeleteCard}
+                    // name={card.name}
+                    // image={card.image}
+                    // duration={card.duration}
+                    isSavedMoviesRoute={isSavedMoviesRoute}
+                    // onDelete={handleDelete}
+                  />
+                ))}
+              </ul>
             </>
       )}
             

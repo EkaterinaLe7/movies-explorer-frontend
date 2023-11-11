@@ -13,7 +13,7 @@ import InfoTooltip from "../InfoTooltip/InfoTooltip";
 import Preloader from "../Preloader/Preloader";
 import okSign from "../../images/OkSign.svg";
 import notOkSign from "../../images/notOkSign.svg";
-import {handleErrorsUser} from "../../utils/utils"
+import { handleErrorsUser } from "../../utils/utils";
 import * as api from "../../utils/MainApi";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
 
@@ -27,6 +27,8 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [isEdit, setIsEdit] = useState(false);
   const [isAppIsReady, setIsAppIsReady] = useState(false);
+  const [savedCards, setSavedCards] = useState([]);
+  const [isSaved, setIsSaved] = useState(false);
 
   const navigate = useNavigate();
 
@@ -41,42 +43,57 @@ function App() {
             setLoggedIn(true);
             setIsAppIsReady(true);
             // navigate("/movies", { replace: true });
-          
           }
         })
-        .catch((err) => {console.log(err)})
-        // .finally(() => {
-        //   setIsAppIsReady(false);
-        // });
+        .catch((err) => {
+          console.log(err);
+        });
+      // .finally(() => {
+      //   setIsAppIsReady(false);
+      // });
     }
   };
 
   useEffect(() => {
-    checkToken()
-    // if (checkToken()) {
-    //   setIsAppIsReady(true)
-    // } else {
-    //   setIsAppIsReady(false)
-    // }
-    
-    
+    checkToken();
+    if (checkToken()) {
+      setIsAppIsReady(true)
+    } else {
+      setIsAppIsReady(false)
+    }
   }, []);
 
   useEffect(() => {
-    const jwt = localStorage.getItem("jwt");
+    // const jwt = localStorage.getItem("jwt");
     if (loggedIn) {
       api
-        .getUserInfo(jwt)
+        .getUserInfo()
         // .getAppInfo()
         // .then(([cardsArray, userData]) => {
         //   setCards(cardsArray.reverse());
         //   setCurrentUser(userData);
         // })
-        
-        .then((userData) => {
-          setCurrentUser(userData)
+
+        .then(setCurrentUser)
+        .catch(console.error);
+    }
+  }, [loggedIn]);
+
+  useEffect(() => {
+    // const jwt = localStorage.getItem("jwt");
+    if (loggedIn) {
+      api
+        .getCards()
+        // .getAppInfo()
+        // .then(([cardsArray, userData]) => {
+        //   setCards(cardsArray.reverse());
+        //   setCurrentUser(userData);
+        // })
+
+        .then((cards) => {
+          setSavedCards(cards.reverse());
         })
-        .catch(console.error)
+        .catch(console.error);
     }
   }, [loggedIn]);
 
@@ -106,8 +123,6 @@ function App() {
         setIsLoadingSubmit(false);
       });
   };
-
-
 
   const onLogin = (email, password) => {
     return api
@@ -152,14 +167,37 @@ function App() {
     );
   };
 
-
-  const renderPreloader = () => {
+  function handleCreateMovieCard(data) {
     return (
-<Preloader />
-    )
+      api
+        .createCard(data)
+        .then((newCard) => {
+          setSavedCards([newCard, ...savedCards]);
+          setIsSaved(true);
+        })
+        // .catch(console.error)
+        .catch((err) => {
+          console.log(err);
+          setInfoTooltipSign(notOkSign);
+          // setInfoTooltipText(err);
+          handleErrorsUser(err, setInfoTooltipText);
+          setIsInfoTooltipPopupOpen(true);
+        })
+    );
   }
 
+  function handleCardDelete(card) {
+    return api
+      .deleteCard(card._id)
+      .then(() => {
+        setSavedCards((cards) => cards.filter((c) => c._id !== card._id));
+      })
+      .catch(console.error);
+  }
 
+  const renderPreloader = () => {
+    return <Preloader />;
+  };
 
   function handleEditOn() {
     setIsEdit(true);
@@ -183,19 +221,32 @@ function App() {
   };
 
   return (
- 
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
-      {/* {!isAppIsReady ? renderPreloader() : <> */}
+        {!isAppIsReady ? renderPreloader() : <>
         <Routes>
-      <Route
+          <Route
             path="/movies"
-            element={<ProtectedRoute element={Movies} loggedIn={loggedIn} />}
+            element={
+              <ProtectedRoute
+                element={Movies}
+                loggedIn={loggedIn}
+                onSaveCard={handleCreateMovieCard}
+                savedCards={savedCards}
+                handleCardDelete={handleCardDelete}
+
+              />
+            }
           />
           <Route
             path="/saved-movies"
             element={
-              <ProtectedRoute element={SavedMovies} loggedIn={loggedIn} />
+              <ProtectedRoute
+                element={SavedMovies}
+                loggedIn={loggedIn}
+                savedCards={savedCards}
+                handleCardDelete={handleCardDelete}
+              />
             }
           />
           <Route
@@ -213,40 +264,51 @@ function App() {
               />
             }
           />
-          
-          <Route path="/" element={<Main loggedIn={loggedIn} /> } />
+
+          <Route path="/" element={<Main loggedIn={loggedIn} />} />
           <Route
             path="/signup"
-            element={<>
-              {!loggedIn ? <Register isLoading={isLoadingSubmit} onRegister={onRegister} /> : <Navigate to="/" replace />}
-              </>} 
+            element={
+              <>
+                {!loggedIn ? (
+                  <Register
+                    isLoading={isLoadingSubmit}
+                    onRegister={onRegister}
+                  />
+                ) : (
+                  <Navigate to="/" replace />
+                )}
+              </>
+            }
             // element={
             //   <Register isLoading={isLoadingSubmit} onRegister={onRegister} />
             // }
           />
           <Route
             path="/signin"
-                        element={<>
-              {!loggedIn ? <Login isLoading={isLoadingSubmit} onLogin={onLogin} /> : <Navigate to="/" replace />}
-              </>}
+            element={
+              <>
+                {!loggedIn ? (
+                  <Login isLoading={isLoadingSubmit} onLogin={onLogin} />
+                ) : (
+                  <Navigate to="/" replace />
+                )}
+              </>
+            }
             // element={<Login isLoading={isLoadingSubmit} onLogin={onLogin} />}
           />
           <Route path="/*" element={<PageNotFound />} />
         </Routes>
-      {/* </>} */}
-      
-          
+        </>}
+
         <InfoTooltip
           sign={infoTooltipSign}
           text={infoTooltipText}
           isOpen={isInfoTooltipPopupOpen}
           onClose={closePopup}
         />
-           
-        
       </div>
-      </CurrentUserContext.Provider>
-    
+    </CurrentUserContext.Provider>
   );
 }
 
