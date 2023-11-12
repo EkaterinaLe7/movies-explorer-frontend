@@ -33,6 +33,7 @@ function App() {
   const navigate = useNavigate();
 
   const checkToken = () => {
+    setIsAppIsReady(true);
     const jwt = localStorage.getItem("jwt");
     if (jwt) {
       api
@@ -40,30 +41,52 @@ function App() {
         .then((res) => {
           if (res) {
             // авторизуем пользователя
+            // setIsAppIsReady(true);
             setLoggedIn(true);
-            setIsAppIsReady(true);
+            // setIsAppIsReady(true);
             // navigate("/movies", { replace: true });
           }
         })
+        // .then(() => setIsAppIsReady(false))
         .catch((err) => {
           console.log(err);
-        });
-      // .finally(() => {
-      //   setIsAppIsReady(false);
-      // });
+        })
+        // .finally(
+        //   setTimeout(() => {
+        //     setIsAppIsReady(false);
+        //   }, 500)
+        // );
+//         .finally(() => {
+// setIsAppIsReady(false);
+//         });
     }
+    // setIsAppIsReady(false);
   };
 
   useEffect(() => {
+    // setIsAppIsReady(true);
     checkToken();
+    // if (checkToken()) {
+    //   setIsAppIsReady(true)
+    // } else {
+    //   setIsAppIsReady(false)
+    // }
+    // setIsAppIsReady(false);
+  }, []);
+
+  useEffect(() => {
+    // setIsAppIsReady(true);
+
     if (checkToken()) {
       setIsAppIsReady(true)
     } else {
       setIsAppIsReady(false)
     }
+    // setIsAppIsReady(false);
   }, []);
 
   useEffect(() => {
+    // setIsAppIsReady(true);
     // const jwt = localStorage.getItem("jwt");
     if (loggedIn) {
       api
@@ -76,10 +99,14 @@ function App() {
 
         .then(setCurrentUser)
         .catch(console.error);
+        // .finally(() => {
+        //   setIsAppIsReady(false);
+        //           });
     }
   }, [loggedIn]);
 
   useEffect(() => {
+    // setIsAppIsReady(true);
     // const jwt = localStorage.getItem("jwt");
     if (loggedIn) {
       api
@@ -94,6 +121,9 @@ function App() {
           setSavedCards(cards.reverse());
         })
         .catch(console.error);
+        // .finally(() => {
+        //   setIsAppIsReady(false);
+        //           });
     }
   }, [loggedIn]);
 
@@ -129,6 +159,7 @@ function App() {
       .authorize(email, password)
       .then((data) => {
         setLoggedIn(true);
+        setIsAppIsReady(true);
         navigate("/movies", { replace: true });
       })
       .catch((err) => {
@@ -173,7 +204,7 @@ function App() {
         .createCard(data)
         .then((newCard) => {
           setSavedCards([newCard, ...savedCards]);
-          setIsSaved(true);
+          // setIsSaved(true);
         })
         // .catch(console.error)
         .catch((err) => {
@@ -223,7 +254,7 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
-        {!isAppIsReady ? renderPreloader() : <>
+        {/* {isAppIsReady ? renderPreloader() : <> */}
         <Routes>
           <Route
             path="/movies"
@@ -234,7 +265,7 @@ function App() {
                 onSaveCard={handleCreateMovieCard}
                 savedCards={savedCards}
                 handleCardDelete={handleCardDelete}
-
+                isAppIsReady={isAppIsReady}
               />
             }
           />
@@ -246,13 +277,15 @@ function App() {
                 loggedIn={loggedIn}
                 savedCards={savedCards}
                 handleCardDelete={handleCardDelete}
+                isAppIsReady={isAppIsReady}
               />
             }
           />
           <Route
             path="/profile"
             element={
-              <ProtectedRoute
+              <>
+              {isAppIsReady ? <Preloader /> : <ProtectedRoute
                 element={Profile}
                 loggedIn={loggedIn}
                 isLoading={isLoadingProfile}
@@ -261,7 +294,10 @@ function App() {
                 isEdit={isEdit}
                 handleEditOn={handleEditOn}
                 handleEditOff={handleEditOff}
-              />
+                // isAppIsReady={isAppIsReady}
+              />}
+              </>
+              
             }
           />
 
@@ -299,7 +335,7 @@ function App() {
           />
           <Route path="/*" element={<PageNotFound />} />
         </Routes>
-        </>}
+        {/* </>} */}
 
         <InfoTooltip
           sign={infoTooltipSign}

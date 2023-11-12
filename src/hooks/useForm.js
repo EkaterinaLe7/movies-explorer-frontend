@@ -23,10 +23,10 @@ import isEmail from 'validator/es/lib/isEmail';
       const name = target.name;
       const value = target.value;
 
-      if (name === 'name' && event.target.validity.patternMismatch) {
-        event.target.setCustomValidity("Заполните поле, используя минимум 2 знака (только буквы, пробел или дефис).");
+      if (name === 'name' && target.validity.patternMismatch) {
+        target.setCustomValidity("Заполните поле, используя минимум 2 знака (только буквы, пробел или дефис).");
       } else if (name === 'email' && !isEmail(value)) {
-        event.target.setCustomValidity("Заполните поле, используя верный формат почты.");
+        target.setCustomValidity("Заполните поле, используя верный формат почты.");
       } else {
         event.target.setCustomValidity('');
       }

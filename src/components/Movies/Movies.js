@@ -159,6 +159,7 @@ function Movies({ loggedIn, onSaveCard, savedCards, handleCardDelete, isSaved })
           onCheck={handleFilterCheck}
           searchText={searchText}
         />
+
         {isServerError && <Error text={SEARCH_SERVER_ERROR} />}
         {(isNotFound && !isLoading && isFirstSearch) && (
           <Error text={NOT_FOUND_SEARCH_ERROR} />

@@ -47,6 +47,9 @@ function Profile({ loggedIn, isLoading, onUpdateUser, onSignOut, isEdit, handleE
       name: values.name,
       email: values.email,
     });
+
+    handleBlurName();
+    handleBlurEmail()
   }
 
   // const [currentUser] = useState({
