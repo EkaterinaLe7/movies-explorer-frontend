@@ -55,6 +55,7 @@ function Register({ isLoading, onRegister }) {
               minLength={2}
               maxLength={30}
               pattern="[\-a-zA-zа-яёА-ЯЁ ]{2,30}"
+              disabled={isLoading ? true : false}
               onChange={handleChange}
             />
             <span className="register__error name-input-error">
@@ -73,8 +74,7 @@ function Register({ isLoading, onRegister }) {
               value={values.email || ""}
               placeholder="Email"
               required
-              minLength={2}
-              maxLength={40}
+              disabled={isLoading ? true : false}
               onChange={handleChange}
             />
             <span className="register__error email-input-error">
@@ -93,6 +93,7 @@ function Register({ isLoading, onRegister }) {
               value={values.password || ""}
               placeholder="Пароль"
               required
+              disabled={isLoading ? true : false}
               onChange={handleChange}
             />
             <span className="register__error password-input-error">

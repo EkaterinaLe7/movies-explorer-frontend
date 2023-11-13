@@ -112,6 +112,7 @@ function App() {
   };
 
   const onLogin = (email, password) => {
+    setIsLoadingSubmit(true);
     return api
       .authorize(email, password)
       .then((data) => {
@@ -126,6 +127,9 @@ function App() {
         setTimeout(() => {
           closePopup();
         }, INFO_POPUP_CLOSE_TIME);
+      })
+      .finally(() => {
+        setIsLoadingSubmit(false);
       });
   };
 

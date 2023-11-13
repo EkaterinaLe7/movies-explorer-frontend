@@ -47,6 +47,7 @@ function Login({ isLoading, onLogin }) {
                 value={values.email || ""}
                 placeholder="Email"
                 required
+                disabled={isLoading ? true : false}
                 onChange={handleChange}
               />
               <span className="login__error email-input-error">
@@ -65,6 +66,7 @@ function Login({ isLoading, onLogin }) {
                 value={values.password || ""}
                 placeholder="Пароль"
                 required
+                disabled={isLoading ? true : false}
                 onChange={handleChange}
               />
               <span className="login__error password-input-error">

@@ -1,6 +1,4 @@
-// export const BASE_URL = "https://api.ekaterinamovies.nomoredomainsrocks.ru";
-// export const BASE_URL = "http://localhost:3000";
-import {BASE_URL} from "./constants";
+import { BASE_URL, BASE_MOVIES_API_URL } from "./constants";
 
 const getResponse = (res) => {
   if (res.ok) {
@@ -41,7 +39,7 @@ export const getUserInfo = () => {
   return fetch(`${BASE_URL}/users/me`, {
     method: "GET",
     headers: {
-      authorization: `Bearer ${localStorage.getItem('jwt')}`,
+      authorization: `Bearer ${localStorage.getItem("jwt")}`,
       "Content-Type": "application/json",
     },
   }).then(getResponse);
@@ -51,18 +49,18 @@ export const setUserInfo = (data) => {
   return fetch(`${BASE_URL}/users/me`, {
     method: "PATCH",
     headers: {
-      authorization: `Bearer ${localStorage.getItem('jwt')}`,
+      authorization: `Bearer ${localStorage.getItem("jwt")}`,
       "Content-Type": "application/json",
     },
     body: JSON.stringify(data),
   }).then(getResponse);
-}
+};
 
 export const createCard = (data) => {
   return fetch(`${BASE_URL}/movies`, {
     method: "POST",
     headers: {
-      authorization: `Bearer ${localStorage.getItem('jwt')}`,
+      authorization: `Bearer ${localStorage.getItem("jwt")}`,
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
@@ -71,36 +69,36 @@ export const createCard = (data) => {
       duration: data.duration,
       year: data.year,
       description: data.description,
-      image: `https://api.nomoreparties.co${data.image.url}`,
+      image: `${BASE_MOVIES_API_URL}${data.image.url}`,
       trailerLink: data.trailerLink,
-      thumbnail: `https://api.nomoreparties.co${data.image.formats.thumbnail.url}`,
+      thumbnail: `${BASE_MOVIES_API_URL}${data.image.formats.thumbnail.url}`,
       movieId: data.id,
       nameRU: data.nameRU,
       nameEN: data.nameEN,
     }),
   }).then(getResponse);
-}
+};
 
 export const getCards = () => {
   return fetch(`${BASE_URL}/movies`, {
     method: "GET",
     headers: {
-      authorization: `Bearer ${localStorage.getItem('jwt')}`,
+      authorization: `Bearer ${localStorage.getItem("jwt")}`,
       "Content-Type": "application/json",
     },
   }).then(getResponse);
-}
+};
 
 export const deleteCard = (id) => {
   return fetch(`${BASE_URL}/movies/${id}`, {
     method: "DELETE",
     headers: {
-      authorization: `Bearer ${localStorage.getItem('jwt')}`,
+      authorization: `Bearer ${localStorage.getItem("jwt")}`,
       "Content-Type": "application/json",
     },
   }).then(getResponse);
-}
+};
 
 export const getAppInfo = () => {
   return Promise.all([getCards(), getUserInfo()]);
-}
+};

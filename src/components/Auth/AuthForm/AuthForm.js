@@ -29,6 +29,7 @@ function AuthForm({
         <button
           className={`auth__button ${!isValid ? "auth__button_disabled" : ""}`}
           type="submit"
+          disabled={isLoading ? true : false}
         >
           {`${isLoading ? "Отправка..." : buttonText}`}
         </button>
