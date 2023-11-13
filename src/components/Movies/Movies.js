@@ -33,8 +33,6 @@ function Movies({
   const [isNotFound, setIsNotFound] = useState(false);
   const [isFirstSearch, setisFirstSearch] = useState(false);
 
-  // const [errorText, setErrorText] = useState("");
-
   function handleMoviesFilter(movies, searchText, isFilterChecked) {
     //  setAllMovies(movies);
     const searchedMoviesList = searchMovies(movies, searchText);

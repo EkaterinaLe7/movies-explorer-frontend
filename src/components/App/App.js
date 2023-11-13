@@ -16,7 +16,12 @@ import notOkSign from "../../images/notOkSign.svg";
 import { handleErrorsUser } from "../../utils/utils";
 import * as api from "../../utils/MainApi";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
-import {REGISTER_SUCCESS_TEXT, UPDATE_PROFILE_SUCCESS_TEXT} from "../../utils/constants"
+import {
+  REGISTER_SUCCESS_TEXT,
+  UPDATE_PROFILE_SUCCESS_TEXT,
+  NOT_READY_STATE_TIME,
+  INFO_POPUP_CLOSE_TIME,
+} from "../../utils/constants";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -27,91 +32,55 @@ function App() {
   const [isLoadingProfile, setIsLoadingProfile] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
   const [isEdit, setIsEdit] = useState(false);
-  const [isAppIsReady, setIsAppIsReady] = useState(true);
+  const [isAppIsNotReady, setIsAppIsNotReady] = useState(true);
   const [savedCards, setSavedCards] = useState([]);
-  const [isSaved, setIsSaved] = useState(false);
 
   const navigate = useNavigate();
 
   const checkToken = () => {
-    setIsAppIsReady(true);
+    setIsAppIsNotReady(true);
     const jwt = localStorage.getItem("jwt");
     if (jwt) {
       api
         .getUserInfo(jwt)
         .then((res) => {
           if (res) {
-            // авторизуем пользователя
-            // setIsAppIsReady(true);
             setLoggedIn(true);
-            // setIsAppIsReady(true);
-            // navigate("/movies", { replace: true });
           }
         })
-        .then(() => setIsAppIsReady(false))
+        .then(() => setIsAppIsNotReady(false))
         .catch((err) => {
           console.log(err);
-        })
-     
+        });
     }
     setTimeout(() => {
-      setIsAppIsReady(false);
-    }, 1500);
+      setIsAppIsNotReady(false);
+    }, NOT_READY_STATE_TIME);
   };
 
   useEffect(() => {
-    // setIsAppIsReady(true);
     checkToken();
-    // if (checkToken()) {
-    //   setIsAppIsReady(true)
-    // } else {
-    //   setIsAppIsReady(false)
-    // }
-    // setIsAppIsReady(false);
   }, []);
 
-
   useEffect(() => {
-    // setIsAppIsReady(true);
-    // const jwt = localStorage.getItem("jwt");
     if (loggedIn) {
       api
         .getUserInfo()
-        // .getAppInfo()
-        // .then(([cardsArray, userData]) => {
-        //   setCards(cardsArray.reverse());
-        //   setCurrentUser(userData);
-        // })
 
         .then(setCurrentUser)
-        // .then(() => setIsAppIsReady(false))
-        .catch(console.error)
-        // .finally(() => {
-        //   setIsAppIsReady(false);
-        //           });
+        .catch(console.error);
     }
-    // setIsAppIsReady(false);
   }, [loggedIn]);
 
   useEffect(() => {
-    // setIsAppIsReady(true);
-    // const jwt = localStorage.getItem("jwt");
     if (loggedIn) {
       api
         .getCards()
-        // .getAppInfo()
-        // .then(([cardsArray, userData]) => {
-        //   setCards(cardsArray.reverse());
-        //   setCurrentUser(userData);
-        // })
 
         .then((cards) => {
           setSavedCards(cards.reverse());
         })
         .catch(console.error);
-        // .finally(() => {
-        //   setIsAppIsReady(false);
-        //           });
     }
   }, [loggedIn]);
 
@@ -126,19 +95,19 @@ function App() {
       .then(() => {
         setInfoTooltipSign(okSign);
         setInfoTooltipText(REGISTER_SUCCESS_TEXT);
-        // navigate("/signin");
         onLogin(data.email, data.password);
       })
       .catch((err) => {
         console.log(err);
         setInfoTooltipSign(notOkSign);
-        // setInfoTooltipText("Что-то пошло не так! Попробуйте еще раз.");
-        // setInfoTooltipText(err);
         handleErrorsUser(err, setInfoTooltipText);
       })
       .finally(() => {
         setIsInfoTooltipPopupOpen(true);
         setIsLoadingSubmit(false);
+        setTimeout(() => {
+          closePopup();
+        }, INFO_POPUP_CLOSE_TIME);
       });
   };
 
@@ -147,61 +116,51 @@ function App() {
       .authorize(email, password)
       .then((data) => {
         setLoggedIn(true);
-        // setIsAppIsReady(true);
         navigate("/movies", { replace: true });
       })
       .catch((err) => {
         console.log(err);
         setInfoTooltipSign(notOkSign);
-        // setInfoTooltipText("Неверный логин или пароль");
         handleErrorsUser(err, setInfoTooltipText);
         setIsInfoTooltipPopupOpen(true);
+        setTimeout(() => {
+          closePopup();
+        }, INFO_POPUP_CLOSE_TIME);
       });
   };
 
   const handleUpdateUser = (data) => {
     setIsLoadingProfile(true);
-    return (
-      api
-        .setUserInfo(data)
-        .then((data) => {
-          setInfoTooltipSign(okSign);
-          setInfoTooltipText(UPDATE_PROFILE_SUCCESS_TEXT);
-          setCurrentUser(data);
-          handleEditOff();
-        })
-        // .then(setCurrentUser)
-        // .catch(console.error)
-        .catch((err) => {
-          console.log(err);
-          setInfoTooltipSign(notOkSign);
-          // setInfoTooltipText(err);
-          handleErrorsUser(err, setInfoTooltipText);
-          setIsInfoTooltipPopupOpen(true);
-        })
-        .finally(() => {
-          setIsLoadingProfile(false);
-          setIsInfoTooltipPopupOpen(true);
-        })
-    );
+    return api
+      .setUserInfo(data)
+      .then((data) => {
+        setInfoTooltipSign(okSign);
+        setInfoTooltipText(UPDATE_PROFILE_SUCCESS_TEXT);
+        setCurrentUser(data);
+        handleEditOff();
+      })
+      .catch((err) => {
+        console.log(err);
+        setInfoTooltipSign(notOkSign);
+        handleErrorsUser(err, setInfoTooltipText);
+        setIsInfoTooltipPopupOpen(true);
+      })
+      .finally(() => {
+        setIsLoadingProfile(false);
+        setIsInfoTooltipPopupOpen(true);
+        setTimeout(() => {
+          closePopup();
+        }, INFO_POPUP_CLOSE_TIME);
+      });
   };
 
   function handleCreateMovieCard(data) {
-    return (
-      api
-        .createCard(data)
-        .then((newCard) => {
-          setSavedCards([newCard, ...savedCards]);
-          // setIsSaved(true);
-        })
-        .catch(console.error)
-        // .catch((err) => {
-        //   console.log(err);
-        //   setInfoTooltipSign(notOkSign);
-        //   setInfoTooltipText("Произошла ошибка. Попробуйте обновить страницу");
-        //   setIsInfoTooltipPopupOpen(true);
-        // })
-    );
+    return api
+      .createCard(data)
+      .then((newCard) => {
+        setSavedCards([newCard, ...savedCards]);
+      })
+      .catch(console.error);
   }
 
   function handleCardDelete(card) {
@@ -212,10 +171,6 @@ function App() {
       })
       .catch(console.error);
   }
-
-  const renderPreloader = () => {
-    return <Preloader />;
-  };
 
   function handleEditOn() {
     setIsEdit(true);
@@ -240,52 +195,62 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
-        {/* {!isAppIsReady ? renderPreloader() : <> */}
         <Routes>
           <Route
             path="/movies"
             element={
-              <ProtectedRoute
-                element={Movies}
-                loggedIn={loggedIn}
-                onSaveCard={handleCreateMovieCard}
-                savedCards={savedCards}
-                handleCardDelete={handleCardDelete}
-                isAppIsReady={isAppIsReady}
-              />
+              <>
+                {isAppIsNotReady ? (
+                  <Preloader />
+                ) : (
+                  <ProtectedRoute
+                    element={Movies}
+                    loggedIn={loggedIn}
+                    onSaveCard={handleCreateMovieCard}
+                    savedCards={savedCards}
+                    handleCardDelete={handleCardDelete}
+                  />
+                )}
+              </>
             }
           />
           <Route
             path="/saved-movies"
             element={
-              <ProtectedRoute
-                element={SavedMovies}
-                loggedIn={loggedIn}
-                savedCards={savedCards}
-                handleCardDelete={handleCardDelete}
-                isAppIsReady={isAppIsReady}
-              />
+              <>
+                {isAppIsNotReady ? (
+                  <Preloader />
+                ) : (
+                  <ProtectedRoute
+                    element={SavedMovies}
+                    loggedIn={loggedIn}
+                    savedCards={savedCards}
+                    handleCardDelete={handleCardDelete}
+                  />
+                )}
+              </>
             }
           />
+
           <Route
             path="/profile"
             element={
               <>
-              {/* {isAppIsReady ? <Preloader /> :  */}
-              <ProtectedRoute
-                element={Profile}
-                loggedIn={loggedIn}
-                isLoading={isLoadingProfile}
-                onUpdateUser={handleUpdateUser}
-                onSignOut={signOut}
-                isEdit={isEdit}
-                handleEditOn={handleEditOn}
-                handleEditOff={handleEditOff}
-                isAppIsReady={isAppIsReady}
-              />
-              {/* } */}
+                {isAppIsNotReady ? (
+                  <Preloader />
+                ) : (
+                  <ProtectedRoute
+                    element={Profile}
+                    loggedIn={loggedIn}
+                    isLoading={isLoadingProfile}
+                    onUpdateUser={handleUpdateUser}
+                    onSignOut={signOut}
+                    isEdit={isEdit}
+                    handleEditOn={handleEditOn}
+                    handleEditOff={handleEditOff}
+                  />
+                )}
               </>
-              
             }
           />
 
@@ -304,9 +269,6 @@ function App() {
                 )}
               </>
             }
-            // element={
-            //   <Register isLoading={isLoadingSubmit} onRegister={onRegister} />
-            // }
           />
           <Route
             path="/signin"
@@ -319,11 +281,9 @@ function App() {
                 )}
               </>
             }
-            // element={<Login isLoading={isLoadingSubmit} onLogin={onLogin} />}
           />
           <Route path="/*" element={<PageNotFound />} />
         </Routes>
-        {/* </>} */}
 
         <InfoTooltip
           sign={infoTooltipSign}

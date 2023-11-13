@@ -1,5 +1,6 @@
 // export const BASE_URL = "https://api.ekaterinamovies.nomoredomainsrocks.ru";
-export const BASE_URL = "http://localhost:3000";
+// export const BASE_URL = "http://localhost:3000";
+import {BASE_URL} from "./constants";
 
 const getResponse = (res) => {
   if (res.ok) {
@@ -39,27 +40,12 @@ export const authorize = (email, password) => {
 export const getUserInfo = () => {
   return fetch(`${BASE_URL}/users/me`, {
     method: "GET",
-    // headers: {
-    //   Accept: "application/json",
-    //   "Content-Type": "application/json",
-    //   Authorization: `Bearer ${token}`,
-    // },
     headers: {
       authorization: `Bearer ${localStorage.getItem('jwt')}`,
       "Content-Type": "application/json",
     },
   }).then(getResponse);
 };
-
-// export const getUserInfo = () => {
-//   return fetch(`${BASE_URL}/users/me`, {
-//     method: "GET",
-//     headers: {
-//       authorization: `Bearer ${localStorage.getItem('jwt')}`,
-//       "Content-Type": "application/json",
-//     },
-//   }).then(getResponse);
-// }
 
 export const setUserInfo = (data) => {
   return fetch(`${BASE_URL}/users/me`, {

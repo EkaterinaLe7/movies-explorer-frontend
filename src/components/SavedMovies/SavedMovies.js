@@ -7,7 +7,6 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Error from "../Error/Error";
 import { searchMovies, filterMovies } from "../../utils/utils";
 import { NOT_FOUND_SEARCH_ERROR } from "../../utils/constants";
-// import cards from "../../utils/saved-cards";
 
 function SavedMovies({ loggedIn, savedCards, handleCardDelete }) {
   // const [searchedMovies, setSearchedMovies] = useState([]);

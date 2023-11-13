@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { SCREEN_L, SCREEN_M, SCREEN_S } from "../utils/constants";
+import { SCREEN_L, SCREEN_M, SCREEN_S, WINDOW_RESIZE_TIME_OUT } from "../utils/constants";
 
 export const useResize = () => {
   const [width, setWidth] = useState(window.innerWidth);
@@ -13,7 +13,7 @@ export const useResize = () => {
     window.addEventListener("resize", (event) => {
       setTimeout(() => {
         handleResize(event);
-      }, 500);
+      }, WINDOW_RESIZE_TIME_OUT);
     });
     return () => {
       window.removeEventListener("resize", handleResize);

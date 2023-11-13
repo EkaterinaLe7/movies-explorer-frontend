@@ -4,10 +4,11 @@ import {
   ERROR_401,
   ERROR_400,
   SERVER_ERROR,
+  FILM_DURATION
 } from "./constants";
 
 export function filterMovies(movies) {
-  return movies.filter((movie) => movie.duration < 40);
+  return movies.filter((movie) => movie.duration < FILM_DURATION);
 }
 
 export function searchMovies(movies, searchText) {

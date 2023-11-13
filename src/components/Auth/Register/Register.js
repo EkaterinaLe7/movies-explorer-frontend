@@ -5,9 +5,9 @@ import { Link } from "react-router-dom";
 import { useFormWithValidation } from "../../../hooks/useForm";
 import AuthForm from "../AuthForm/AuthForm";
 
-
 function Register({ isLoading, onRegister }) {
-  const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation();
+  const { values, handleChange, errors, isValid, resetForm } =
+    useFormWithValidation();
 
   useEffect(() => {
     resetForm();
@@ -29,36 +29,6 @@ function Register({ isLoading, onRegister }) {
     });
   };
 
-  // const { values, handleChange, setValues } = useForm({
-  //   username: "",
-  //   email: "",
-  //   password: "",
-  // });
-
-  // useEffect(() => {
-  //   setValues({
-  //     username: "",
-  //     email: "",
-  //     password: "",
-  //   });
-  // }, [setValues]);
-
-  // const { username, email, password } = values;
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-
-  //   if (!username || !email || !password) {
-  //     return;
-  //   }
-
-  //   onRegister({
-  //     name: username,
-  //     email: email,
-  //     password: password,
-  //   });
-  // };
-
   return (
     <main className="register">
       <div className="register__container">
@@ -73,7 +43,9 @@ function Register({ isLoading, onRegister }) {
           <label className="register__label">
             Имя
             <input
-              className={`register__input ${errors.name ? "register__input_type_error" : ""}`}
+              className={`register__input ${
+                errors.name ? "register__input_type_error" : ""
+              }`}
               type="text"
               id="name-input"
               name="name"
@@ -82,16 +54,19 @@ function Register({ isLoading, onRegister }) {
               required
               minLength={2}
               maxLength={30}
-              pattern='[\-a-zA-zа-яёА-ЯЁ ]{2,30}'
+              pattern="[\-a-zA-zа-яёА-ЯЁ ]{2,30}"
               onChange={handleChange}
             />
-            <span className="register__error name-input-error">{errors.name}</span>
+            <span className="register__error name-input-error">
+              {errors.name}
+            </span>
           </label>
           <label className="register__label">
             E-mail
             <input
-              // className="register__input register__input_content_email"
-              className={`register__input ${errors.email ? "register__input_type_error" : ""}`}
+              className={`register__input ${
+                errors.email ? "register__input_type_error" : ""
+              }`}
               type="email"
               id="email-input"
               name="email"
@@ -102,24 +77,26 @@ function Register({ isLoading, onRegister }) {
               maxLength={40}
               onChange={handleChange}
             />
-            <span className="register__error email-input-error">{errors.email}</span>
+            <span className="register__error email-input-error">
+              {errors.email}
+            </span>
           </label>
           <label className="register__label">
             Пароль
             <input
-              // className="register__input register__input_content_password"
-              className={`register__input ${errors.password ? "register__input_type_error" : ""}`}
+              className={`register__input ${
+                errors.password ? "register__input_type_error" : ""
+              }`}
               type="password"
               id="password-input"
               name="password"
               value={values.password || ""}
               placeholder="Пароль"
               required
-              minLength={5}
-              maxLength={40}
               onChange={handleChange}
             />
-            <span className="register__error password-input-error">{errors.password}
+            <span className="register__error password-input-error">
+              {errors.password}
             </span>
           </label>
         </AuthForm>
