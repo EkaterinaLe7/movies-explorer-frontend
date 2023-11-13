@@ -18,5 +18,8 @@ export const ERROR_401 = "Неверный логин или пароль";
 export const ERROR_404 = "Пользователь не найден";
 export const SERVER_ERROR = "На сервере произошла ошибка";
 
+export const REGISTER_SUCCESS_TEXT = "Вы успешно зарегистрировались!";
+export const UPDATE_PROFILE_SUCCESS_TEXT = "Данные обновлены";
+
 export const SEARCH_SERVER_ERROR = "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз";
 export const NOT_FOUND_SEARCH_ERROR = "Ничего не найдено";

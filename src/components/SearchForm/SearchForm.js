@@ -2,13 +2,13 @@ import React, { useState, useEffect } from "react";
 import "./SearchForm.css";
 import FilterCheckbox from "./FilterCheckbox/FilterCheckbox";
 
-function SearchForm({onSearchSubmit, onCheck, isFilterChecked, searchText}) {
+function SearchForm({ onSearchSubmit, onCheck, isFilterChecked, searchText }) {
   const [isFocused, setIsFocused] = useState(false);
   const [keyWords, setkeyWords] = useState("");
   const [isSearchError, setIsSearchError] = useState(false);
 
   useEffect(() => {
-    setkeyWords(searchText)
+    setkeyWords(searchText);
   }, [searchText]);
 
   function handleFocus() {
@@ -30,17 +30,19 @@ function SearchForm({onSearchSubmit, onCheck, isFilterChecked, searchText}) {
     } else {
       setIsSearchError(false);
       onSearchSubmit(keyWords);
-      
     }
   }
 
   return (
     <section className="search">
-      
       <div className="search__wrapper">
-      <span className={`search__error ${
-              isSearchError ? "search__error_showned" : ""
-            } `}>Нужно ввести ключевое слово</span>
+        <span
+          className={`search__error ${
+            isSearchError ? "search__error_showned" : ""
+          } `}
+        >
+          Нужно ввести ключевое слово
+        </span>
         <div
           className={`search__container ${
             isFocused ? "search__container_focused" : ""
@@ -66,16 +68,18 @@ function SearchForm({onSearchSubmit, onCheck, isFilterChecked, searchText}) {
                 value={keyWords}
               />
             </label>
-            
-            <button className="search__button" type="submit" onClick={handleSubmit}>
+
+            <button
+              className="search__button"
+              type="submit"
+              onClick={handleSubmit}
+            >
               Найти
             </button>
           </form>
-         
+
           <FilterCheckbox isFilterChecked={isFilterChecked} onCheck={onCheck} />
-          
         </div>
-        
       </div>
     </section>
   );

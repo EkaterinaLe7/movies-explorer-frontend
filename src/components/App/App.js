@@ -16,6 +16,7 @@ import notOkSign from "../../images/notOkSign.svg";
 import { handleErrorsUser } from "../../utils/utils";
 import * as api from "../../utils/MainApi";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
+import {REGISTER_SUCCESS_TEXT, UPDATE_PROFILE_SUCCESS_TEXT} from "../../utils/constants"
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -26,7 +27,7 @@ function App() {
   const [isLoadingProfile, setIsLoadingProfile] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
   const [isEdit, setIsEdit] = useState(false);
-  const [isAppIsReady, setIsAppIsReady] = useState(false);
+  const [isAppIsReady, setIsAppIsReady] = useState(true);
   const [savedCards, setSavedCards] = useState([]);
   const [isSaved, setIsSaved] = useState(false);
 
@@ -47,20 +48,15 @@ function App() {
             // navigate("/movies", { replace: true });
           }
         })
-        // .then(() => setIsAppIsReady(false))
+        .then(() => setIsAppIsReady(false))
         .catch((err) => {
           console.log(err);
         })
-        // .finally(
-        //   setTimeout(() => {
-        //     setIsAppIsReady(false);
-        //   }, 500)
-        // );
-//         .finally(() => {
-// setIsAppIsReady(false);
-//         });
+     
     }
-    // setIsAppIsReady(false);
+    setTimeout(() => {
+      setIsAppIsReady(false);
+    }, 1500);
   };
 
   useEffect(() => {
@@ -74,16 +70,6 @@ function App() {
     // setIsAppIsReady(false);
   }, []);
 
-  useEffect(() => {
-    // setIsAppIsReady(true);
-
-    if (checkToken()) {
-      setIsAppIsReady(true)
-    } else {
-      setIsAppIsReady(false)
-    }
-    // setIsAppIsReady(false);
-  }, []);
 
   useEffect(() => {
     // setIsAppIsReady(true);
@@ -98,11 +84,13 @@ function App() {
         // })
 
         .then(setCurrentUser)
-        .catch(console.error);
+        // .then(() => setIsAppIsReady(false))
+        .catch(console.error)
         // .finally(() => {
         //   setIsAppIsReady(false);
         //           });
     }
+    // setIsAppIsReady(false);
   }, [loggedIn]);
 
   useEffect(() => {
@@ -137,7 +125,7 @@ function App() {
       .register(data)
       .then(() => {
         setInfoTooltipSign(okSign);
-        setInfoTooltipText("Вы успешно зарегистрировались!");
+        setInfoTooltipText(REGISTER_SUCCESS_TEXT);
         // navigate("/signin");
         onLogin(data.email, data.password);
       })
@@ -159,7 +147,7 @@ function App() {
       .authorize(email, password)
       .then((data) => {
         setLoggedIn(true);
-        setIsAppIsReady(true);
+        // setIsAppIsReady(true);
         navigate("/movies", { replace: true });
       })
       .catch((err) => {
@@ -178,7 +166,7 @@ function App() {
         .setUserInfo(data)
         .then((data) => {
           setInfoTooltipSign(okSign);
-          setInfoTooltipText("Данные обновлены");
+          setInfoTooltipText(UPDATE_PROFILE_SUCCESS_TEXT);
           setCurrentUser(data);
           handleEditOff();
         })
@@ -206,14 +194,13 @@ function App() {
           setSavedCards([newCard, ...savedCards]);
           // setIsSaved(true);
         })
-        // .catch(console.error)
-        .catch((err) => {
-          console.log(err);
-          setInfoTooltipSign(notOkSign);
-          // setInfoTooltipText(err);
-          handleErrorsUser(err, setInfoTooltipText);
-          setIsInfoTooltipPopupOpen(true);
-        })
+        .catch(console.error)
+        // .catch((err) => {
+        //   console.log(err);
+        //   setInfoTooltipSign(notOkSign);
+        //   setInfoTooltipText("Произошла ошибка. Попробуйте обновить страницу");
+        //   setIsInfoTooltipPopupOpen(true);
+        // })
     );
   }
 
@@ -246,7 +233,6 @@ function App() {
     localStorage.removeItem("filterCheck");
     localStorage.removeItem("allMovies");
     setLoggedIn(false);
-    // localStorage.clear();
 
     navigate("/", { replace: true });
   };
@@ -254,7 +240,7 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
-        {/* {isAppIsReady ? renderPreloader() : <> */}
+        {/* {!isAppIsReady ? renderPreloader() : <> */}
         <Routes>
           <Route
             path="/movies"
@@ -285,7 +271,8 @@ function App() {
             path="/profile"
             element={
               <>
-              {isAppIsReady ? <Preloader /> : <ProtectedRoute
+              {/* {isAppIsReady ? <Preloader /> :  */}
+              <ProtectedRoute
                 element={Profile}
                 loggedIn={loggedIn}
                 isLoading={isLoadingProfile}
@@ -294,8 +281,9 @@ function App() {
                 isEdit={isEdit}
                 handleEditOn={handleEditOn}
                 handleEditOff={handleEditOff}
-                // isAppIsReady={isAppIsReady}
-              />}
+                isAppIsReady={isAppIsReady}
+              />
+              {/* } */}
               </>
               
             }

@@ -10,57 +10,53 @@ import { NOT_FOUND_SEARCH_ERROR } from "../../utils/constants";
 // import cards from "../../utils/saved-cards";
 
 function SavedMovies({ loggedIn, savedCards, handleCardDelete }) {
-  const [searchedMovies, setSearchedMovies] = useState([]); //найденные по ключевым словам фильмы
-  const [filteredMovies, setFilteredMovies] = useState([]); // фильмы для рендера с учетом короткометражек
+  // const [searchedMovies, setSearchedMovies] = useState([]);
+  const [filteredMovies, setFilteredMovies] = useState([]);
 
   const [isFilterChecked, setIsFilterChecked] = useState(false);
 
   const [searchText, setSearchText] = useState("");
   const [isNotFound, setIsNotFound] = useState(false);
 
-  function handleMoviesFilter(movies, query, isFilterChecked) {
-    const searchedMoviesList = searchMovies(movies, query);
-    setSearchedMovies(searchedMoviesList);
+  function handleMoviesFilter(movies, searchText, isFilterChecked) {
+    const searchedMoviesList = searchMovies(movies, searchText);
+    // setSearchedMovies(searchedMoviesList);
     setFilteredMovies(
       isFilterChecked ? filterMovies(searchedMoviesList) : searchedMoviesList
     );
   }
 
-  function handleSearchMoviesSubmit(query) {
-    setSearchText(query);
-      // handleMoviesFilter(savedCards, query, isFilterChecked);
-    }
+  function handleSearchMoviesSubmit(searchText) {
+    setSearchText(searchText);
+  }
 
-    function handleFilterCheck() {
-      setIsFilterChecked(!isFilterChecked);
-    }
+  function handleFilterCheck() {
+    setIsFilterChecked(!isFilterChecked);
+  }
 
-      useEffect(() => {
-        handleMoviesFilter(savedCards, searchText, isFilterChecked)
+  useEffect(() => {
+    handleMoviesFilter(savedCards, searchText, isFilterChecked);
   }, [savedCards, searchText, isFilterChecked]);
 
   useEffect(() => {
-      if (filteredMovies.length < 1) {
-        setIsNotFound(true);
-      } else {
-        setIsNotFound(false);
-      }
-
+    if (filteredMovies.length < 1) {
+      setIsNotFound(true);
+    } else {
+      setIsNotFound(false);
+    }
   }, [isNotFound, setIsNotFound, filteredMovies.length]);
 
   return (
     <>
       <Header loggedIn={loggedIn} />
       <main className="saved-movies">
-        <SearchForm 
-        onSearchSubmit={handleSearchMoviesSubmit}
-        isFilterChecked={isFilterChecked}
-        onCheck={handleFilterCheck}
-        searchText={searchText}
-         />
-                 {isNotFound && (
-          <Error text={NOT_FOUND_SEARCH_ERROR} />
-        )}
+        <SearchForm
+          onSearchSubmit={handleSearchMoviesSubmit}
+          isFilterChecked={isFilterChecked}
+          onCheck={handleFilterCheck}
+          searchText={searchText}
+        />
+        {isNotFound && <Error text={NOT_FOUND_SEARCH_ERROR} />}
         <MoviesCardList
           cards={filteredMovies}
           isSavedMoviesRoute={true}

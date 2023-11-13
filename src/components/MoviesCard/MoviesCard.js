@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "./MoviesCard.css";
 import { BASE_MOVIES_API_URL } from "../../utils/constants";
 import MovieCardButton from "./MovieCardButton/MovieCardButton";
@@ -11,52 +11,18 @@ function MoviesCard({
   savedCards,
   onDeleteCard,
   isSaved,
-  // hasSavedCard
 }) {
-
-  // const [isSaved, setIsSaved] = useState(false);
-  // const checkSavedCard = savedCards.some(savedCard => {
-  //   return savedCard.movieId === card.movieId
-  // })
-
-  // useEffect(() => {
-    
-  //   setIsSaved(checkSavedCard);
-  // }, [card, checkSavedCard]);
-
-  // function checkSavedCard(card) {
-  //     return savedCards.some((savedCard) => savedCard.movieId === card.movieId)
-      
-  //   }
-
-
-
-
   function handleSaveCard() {
     onSaveCard(card);
   }
 
-  // function handleToggleSaveDeleteCard() {
-  //   const isSaved = savedCards.some((savedCard) => savedCard.movieId === card.id)
-  //   if(isSaved) {
-  //     onDeleteCard(savedCards.find((savedCard) => savedCard.movieId === card.id));
-  //   }
-  //   onSaveCard(card);
-  // }
-
   function handleDeleteSearchedCard() {
-
-      onDeleteCard(savedCards.find((savedCard) => savedCard.movieId === card.id));
+    onDeleteCard(savedCards.find((c) => c.movieId === card.id));
   }
 
   function handleDeleteCard() {
     onDeleteCard(card);
   }
-
-
-  // const hasSavedCard = savedCards.some(s => {
-  //   return s.movieId === card.movieId
-  // })
 
   return (
     <li className="card">
@@ -81,7 +47,6 @@ function MoviesCard({
         isSaved={isSaved}
         onSave={handleSaveCard}
         onSearchedCardDelete={handleDeleteSearchedCard}
-        // onToggle={handleToggleSaveDeleteCard}
         onDelete={handleDeleteCard}
       />
       <div className="card__description">

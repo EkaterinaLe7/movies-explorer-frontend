@@ -12,9 +12,14 @@ import {
   SEARCH_SERVER_ERROR,
   NOT_FOUND_SEARCH_ERROR,
 } from "../../utils/constants";
-// import cards from "../../utils/cards";
 
-function Movies({ loggedIn, onSaveCard, savedCards, handleCardDelete, isSaved }) {
+function Movies({
+  loggedIn,
+  onSaveCard,
+  savedCards,
+  handleCardDelete,
+  isSaved,
+}) {
   // const [allMovies, setAllMovies] = useState([]);
   const [searchedMovies, setSearchedMovies] = useState([]); //найденные по ключевым словам фильмы
   const [filteredMovies, setFilteredMovies] = useState([]); // фильмы для рендера с учетом короткометражек
@@ -30,23 +35,22 @@ function Movies({ loggedIn, onSaveCard, savedCards, handleCardDelete, isSaved })
 
   // const [errorText, setErrorText] = useState("");
 
-
-  function handleMoviesFilter(movies, query, isFilterChecked) {
+  function handleMoviesFilter(movies, searchText, isFilterChecked) {
     //  setAllMovies(movies);
-    const searchedMoviesList = searchMovies(movies, query);
+    const searchedMoviesList = searchMovies(movies, searchText);
     setSearchedMovies(searchedMoviesList);
     setFilteredMovies(
       isFilterChecked ? filterMovies(searchedMoviesList) : searchedMoviesList
     );
 
     localStorage.setItem("searchedMovies", JSON.stringify(searchedMoviesList));
-    localStorage.setItem("searchTextQuery", query);
+    localStorage.setItem("searchTextQuery", searchText);
     localStorage.setItem("filterCheck", isFilterChecked);
   }
 
-  function handleSearchMoviesSubmit(query) {
+  function handleSearchMoviesSubmit(searchText) {
     const storedAllMovies = localStorage.getItem("allMovies");
-    setSearchText(query);
+    setSearchText(searchText);
     setIsServerError(false);
 
     if (!storedAllMovies) {
@@ -54,7 +58,7 @@ function Movies({ loggedIn, onSaveCard, savedCards, handleCardDelete, isSaved })
       moviesApi
         .getMovies()
         .then((movies) => {
-          handleMoviesFilter(movies, query, isFilterChecked);
+          handleMoviesFilter(movies, searchText, isFilterChecked);
           setisFirstSearch(true);
           // setAllMovies(movies);
 
@@ -67,29 +71,13 @@ function Movies({ loggedIn, onSaveCard, savedCards, handleCardDelete, isSaved })
         .finally(() => setIsLoading(false));
     } else {
       // setAllMovies(JSON.parse(storedAllMovies));
-      handleMoviesFilter(JSON.parse(storedAllMovies), query, isFilterChecked);
+      handleMoviesFilter(
+        JSON.parse(storedAllMovies),
+        searchText,
+        isFilterChecked
+      );
     }
   }
-
-  // useEffect(() => {
-  //   if (filteredMovies.length < 1) {
-  //     setIsNotFound(true);
-  //   } else {
-  //     setIsNotFound(false);
-  //   }
-  // }, [isNotFound, setIsNotFound, filteredMovies.length, isFirstSearch]);
-
-  // useEffect(() => {
-  //   if (localStorage.getItem('searchedMovies')) {
-  //     if (filteredMovies.length === 0) {
-  //       setIsNotFound(true);
-  //     } else {
-  //       setIsNotFound(false);
-  //     }
-  //   } else {
-  //     setIsNotFound(false);
-  //   }
-  // }, [filteredMovies]);
 
   useEffect(() => {
     const storedFilterCheck = JSON.parse(localStorage.getItem("filterCheck"));
@@ -136,18 +124,15 @@ function Movies({ loggedIn, onSaveCard, savedCards, handleCardDelete, isSaved })
   }
 
   useEffect(() => {
-    if (localStorage.getItem('searchedMovies')) {
+    if (localStorage.getItem("searchedMovies")) {
       if (filteredMovies.length < 1) {
         setIsNotFound(true);
-        setisFirstSearch(true)
+        setisFirstSearch(true);
       } else {
         setIsNotFound(false);
       }
     }
-
   }, [isNotFound, setIsNotFound, filteredMovies.length, isFirstSearch]);
-
-
 
   return (
     <>
@@ -161,7 +146,7 @@ function Movies({ loggedIn, onSaveCard, savedCards, handleCardDelete, isSaved })
         />
 
         {isServerError && <Error text={SEARCH_SERVER_ERROR} />}
-        {(isNotFound && !isLoading && isFirstSearch) && (
+        {isNotFound && !isLoading && isFirstSearch && (
           <Error text={NOT_FOUND_SEARCH_ERROR} />
         )}
         {isLoading ? (
