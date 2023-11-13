@@ -38,12 +38,12 @@ function SavedMovies({ loggedIn, savedCards, handleCardDelete }) {
   }, [savedCards, searchText, isFilterChecked]);
 
   useEffect(() => {
-    if (filteredMovies.length < 1) {
+    if (filteredMovies.length === 0 && savedCards.length !== 0) {
       setIsNotFound(true);
     } else {
       setIsNotFound(false);
     }
-  }, [isNotFound, setIsNotFound, filteredMovies.length]);
+  }, [filteredMovies, savedCards]);
 
   return (
     <>

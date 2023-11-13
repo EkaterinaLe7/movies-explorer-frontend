@@ -1,9 +1,4 @@
 import {
-  ERROR_409,
-  ERROR_404,
-  ERROR_401,
-  ERROR_400,
-  SERVER_ERROR,
   FILM_DURATION
 } from "./constants";
 
@@ -22,19 +17,19 @@ export function searchMovies(movies, searchText) {
   return filteredMovies;
 }
 
-export const handleErrorsUser = (err, setInfoTooltipText) => {
-  if (err === "Ошибка: 409") {
-    setInfoTooltipText(ERROR_409);
-  } else if (err === "Ошибка: 400") {
-    setInfoTooltipText(ERROR_400);
-  } else if (err === "Ошибка: 401") {
-    setInfoTooltipText(ERROR_401);
-  } else if (err === "Ошибка: 404") {
-    setInfoTooltipText(ERROR_404);
-  } else {
-    setInfoTooltipText(SERVER_ERROR);
-  }
-};
+// export const handleErrorsUser = (err, setInfoTooltipText) => {
+//   if (err === "Ошибка: 409") {
+//     setInfoTooltipText(ERROR_409);
+//   } else if (err === "Ошибка: 400") {
+//     setInfoTooltipText(ERROR_400);
+//   } else if (err === "Ошибка: 401") {
+//     setInfoTooltipText(ERROR_401);
+//   } else if (err === "Ошибка: 404") {
+//     setInfoTooltipText(ERROR_404);
+//   } else {
+//     setInfoTooltipText(SERVER_ERROR);
+//   }
+// };
 
 export function convertMovieDuration(duration) {
   const hours = Math.floor(duration / 60);

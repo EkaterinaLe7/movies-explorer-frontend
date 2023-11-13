@@ -13,7 +13,6 @@ import InfoTooltip from "../InfoTooltip/InfoTooltip";
 import Preloader from "../Preloader/Preloader";
 import okSign from "../../images/OkSign.svg";
 import notOkSign from "../../images/notOkSign.svg";
-import { handleErrorsUser } from "../../utils/utils";
 import * as api from "../../utils/MainApi";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
 import {
@@ -100,7 +99,8 @@ function App() {
       .catch((err) => {
         console.log(err);
         setInfoTooltipSign(notOkSign);
-        handleErrorsUser(err, setInfoTooltipText);
+        setInfoTooltipText(err);
+        setIsInfoTooltipPopupOpen(true);
       })
       .finally(() => {
         setIsInfoTooltipPopupOpen(true);
@@ -122,7 +122,7 @@ function App() {
       .catch((err) => {
         console.log(err);
         setInfoTooltipSign(notOkSign);
-        handleErrorsUser(err, setInfoTooltipText);
+        setInfoTooltipText(err);
         setIsInfoTooltipPopupOpen(true);
         setTimeout(() => {
           closePopup();
@@ -146,7 +146,7 @@ function App() {
       .catch((err) => {
         console.log(err);
         setInfoTooltipSign(notOkSign);
-        handleErrorsUser(err, setInfoTooltipText);
+        setInfoTooltipText(err);
         setIsInfoTooltipPopupOpen(true);
       })
       .finally(() => {
@@ -164,7 +164,12 @@ function App() {
       .then((newCard) => {
         setSavedCards([newCard, ...savedCards]);
       })
-      .catch(console.error);
+      .catch((err) => {
+        console.log(err);
+        setInfoTooltipSign(notOkSign);
+        setInfoTooltipText(err);
+        setIsInfoTooltipPopupOpen(true);
+      });
   }
 
   function handleCardDelete(card) {
@@ -173,7 +178,12 @@ function App() {
       .then(() => {
         setSavedCards((cards) => cards.filter((c) => c._id !== card._id));
       })
-      .catch(console.error);
+      .catch((err) => {
+        console.log(err);
+        setInfoTooltipSign(notOkSign);
+        setInfoTooltipText(err);
+        setIsInfoTooltipPopupOpen(true);
+      });
   }
 
   function handleEditOn() {
@@ -185,12 +195,7 @@ function App() {
   }
 
   const signOut = () => {
-    if (!localStorage.getItem("jwt")) return;
-    localStorage.removeItem("jwt");
-    localStorage.removeItem("searchedMovies");
-    localStorage.removeItem("searchTextQuery");
-    localStorage.removeItem("filterCheck");
-    localStorage.removeItem("allMovies");
+    localStorage.clear();
     setLoggedIn(false);
 
     navigate("/", { replace: true });

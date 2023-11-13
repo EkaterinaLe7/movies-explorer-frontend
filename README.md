@@ -1,7 +1,11 @@
 # Movies Explorer Frontend  
   
-В данном репозитории представлен верстка для проекта Movies Explorer в рамках дипломной работы курса Яндекс Практикум.  
+В данном репозитории представлен фронтэнд проекта Movies Explorer в рамках дипломной работы курса Яндекс Практикум.  
   
 Макет в Figma: light-4  
+
+### [Ссылка на пул реквест ](https://github.com/EkaterinaLe7/movies-explorer-frontend/pull/2)  
+  
+Ссылка на проект <https://ekaterinamovies.nomoredomainsrocks.ru>  
   
 ### [Ссылка на макет ](https://www.figma.com/file/6FMWkB94wE7KTkcCgUXtnC/%D0%94%D0%B8%D0%BF%D0%BB%D0%BE%D0%BC%D0%BD%D1%8B%D0%B9-%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82?type=design&node-id=1-2798&mode=design&t=0CwO9UEjTxAsPCpk-0)  

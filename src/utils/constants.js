@@ -1,5 +1,5 @@
-// export const BASE_URL = "https://api.ekaterinamovies.nomoredomainsrocks.ru";
-export const BASE_URL = "http://localhost:3000";
+export const BASE_URL = "https://api.ekaterinamovies.nomoredomainsrocks.ru";
+// export const BASE_URL = "http://localhost:3000";
 export const BASE_MOVIES_API_URL = "https://api.nomoreparties.co";
 
 export const SCREEN_L = 1240;
@@ -20,11 +20,11 @@ export const NOT_READY_STATE_TIME = 1500;
 export const INFO_POPUP_CLOSE_TIME = 3000;
 export const WINDOW_RESIZE_TIME_OUT = 500;
 
-export const ERROR_409 = "Пользователь с таким email уже существует";
-export const ERROR_400 = "Переданы некорректные данные";
-export const ERROR_401 = "Неверный логин или пароль";
-export const ERROR_404 = "Пользователь не найден";
-export const SERVER_ERROR = "На сервере произошла ошибка";
+// export const ERROR_409 = "Пользователь с таким email уже существует";
+// export const ERROR_400 = "Переданы некорректные данные";
+// export const ERROR_401 = "Неверный логин или пароль";
+// export const ERROR_404 = "Пользователь не найден";
+// export const SERVER_ERROR = "На сервере произошла ошибка";
 
 export const REGISTER_SUCCESS_TEXT = "Вы успешно зарегистрировались!";
 export const UPDATE_PROFILE_SUCCESS_TEXT = "Данные обновлены";
