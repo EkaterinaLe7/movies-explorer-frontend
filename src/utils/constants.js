@@ -16,7 +16,7 @@ export const ADDITIONAL_CARDS_S = 2;
 
 export const FILM_DURATION = 40;
 
-export const NOT_READY_STATE_TIME = 1500;
+export const NOT_READY_STATE_TIME = 2500;
 export const INFO_POPUP_CLOSE_TIME = 3000;
 export const WINDOW_RESIZE_TIME_OUT = 500;
 
