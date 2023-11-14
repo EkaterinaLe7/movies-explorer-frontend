@@ -81,7 +81,7 @@ function Profile({
                 type="text"
                 id="name-input"
                 name="name"
-                disabled={(isEdit && !isLoading) ? false : true}
+                disabled={isEdit && !isLoading ? false : true}
                 value={values.name || ""}
                 placeholder="Имя"
                 required
@@ -106,7 +106,7 @@ function Profile({
                 type="email"
                 id="email-input"
                 name="email"
-                disabled={(isEdit && !isLoading) ? false : true}
+                disabled={isEdit && !isLoading ? false : true}
                 value={values.email || ""}
                 placeholder="E-mail"
                 required
@@ -125,9 +125,9 @@ function Profile({
                 <button
                   className={`profile__btn-submit ${
                     validityCheck ? "popup__btn-submit_disabled" : ""
-                  }`}
+                  }  ${isLoading ? "popup__btn-submit_type_loading" : ""}`}
                   type="submit"
-                  disabled={(validityCheck || isLoading) ? true : false}
+                  disabled={validityCheck || isLoading ? true : false}
                 >
                   {`${isLoading ? "Сохранение..." : "Сохранить"}`}
                 </button>

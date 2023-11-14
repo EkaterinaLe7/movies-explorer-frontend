@@ -27,7 +27,9 @@ function AuthForm({
         <div className="auth__wrapper">{children}</div>
         <span className="profile__error"></span>
         <button
-          className={`auth__button ${!isValid ? "auth__button_disabled" : ""}`}
+          className={`auth__button ${!isValid ? "auth__button_disabled" : ""} ${
+            isLoading ? "auth__button_type_loading" : ""
+          }`}
           type="submit"
           disabled={isLoading ? true : false}
         >
