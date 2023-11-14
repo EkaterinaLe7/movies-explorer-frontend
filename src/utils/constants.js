@@ -1,5 +1,5 @@
-// export const BASE_URL = "https://api.ekaterinamovies.nomoredomainsrocks.ru";
-export const BASE_URL = "http://localhost:3000";
+export const BASE_URL = "https://api.ekaterinamovies.nomoredomainsrocks.ru";
+// export const BASE_URL = "http://localhost:3000";
 export const BASE_MOVIES_API_URL = "https://api.nomoreparties.co";
 
 export const SCREEN_L = 1240;

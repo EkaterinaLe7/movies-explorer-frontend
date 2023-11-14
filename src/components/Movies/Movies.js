@@ -20,7 +20,6 @@ function Movies({
   handleCardDelete,
   isSaved,
 }) {
-  // const [allMovies, setAllMovies] = useState([]);
   const [searchedMovies, setSearchedMovies] = useState([]); //найденные по ключевым словам фильмы
   const [filteredMovies, setFilteredMovies] = useState([]); // фильмы для рендера с учетом короткометражек
 
@@ -34,7 +33,6 @@ function Movies({
   const [isFirstSearch, setisFirstSearch] = useState(false);
 
   function handleMoviesFilter(movies, searchText, isFilterChecked) {
-    //  setAllMovies(movies);
     const searchedMoviesList = searchMovies(movies, searchText);
     setSearchedMovies(searchedMoviesList);
     setFilteredMovies(
@@ -58,7 +56,6 @@ function Movies({
         .then((movies) => {
           handleMoviesFilter(movies, searchText, isFilterChecked);
           setisFirstSearch(true);
-          // setAllMovies(movies);
 
           localStorage.setItem("allMovies", JSON.stringify(movies));
         })
@@ -68,7 +65,6 @@ function Movies({
         })
         .finally(() => setIsLoading(false));
     } else {
-      // setAllMovies(JSON.parse(storedAllMovies));
       handleMoviesFilter(
         JSON.parse(storedAllMovies),
         searchText,

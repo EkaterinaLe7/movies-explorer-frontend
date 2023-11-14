@@ -3,9 +3,7 @@ import "./Error.css";
 
 function SearchError({ text }) {
   return (
-    <>
       <h2 className="search-error">{text}</h2>
-    </>
   );
 }
 
