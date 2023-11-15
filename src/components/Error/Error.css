@@ -1,0 +1,13 @@
+.search-error {
+  color: #000;
+  text-align: center;
+  margin-top: 70px;
+}
+
+@media screen and (max-width: 450px) {
+  .search-error {
+    color: #000;
+    margin-top: 70px;
+    font-size: 12px;
+  }
+}

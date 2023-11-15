@@ -61,6 +61,17 @@
   opacity: 0.7;
 }
 
+@media screen and (max-width: 639px) {
+  .card__btn_type_save {
+    opacity: 1;
+  }
+}
+
+.card__btn_type_delete {
+  opacity: 1;
+}
+
+
 @media screen and (max-width: 700px) {
   .card__btn {
     top: 10px;

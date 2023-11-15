@@ -2,16 +2,37 @@ import React from "react";
 import "./AuthForm.css";
 import Logo from "../../Logo/Logo";
 
-function AuthForm({ isLoading, title, children, buttonText }) {
+function AuthForm({
+  isLoading,
+  title,
+  name,
+  children,
+  buttonText,
+  handleSubmit,
+  isValid,
+}) {
   return (
     <div className="auth">
       <div className="auth__container">
         <Logo />
         <h2 className="auth__title">{title}</h2>
       </div>
-      <form className="auth__form" method="post" name="register">
+      <form
+        className="auth__form"
+        method="post"
+        name={name}
+        onSubmit={handleSubmit}
+        noValidate
+      >
         <div className="auth__wrapper">{children}</div>
-        <button className="auth__button" type="submit">
+        <span className="profile__error"></span>
+        <button
+          className={`auth__button ${!isValid ? "auth__button_disabled" : ""} ${
+            isLoading ? "auth__button_type_loading" : ""
+          }`}
+          type="submit"
+          disabled={isLoading ? true : false}
+        >
           {`${isLoading ? "Отправка..." : buttonText}`}
         </button>
       </form>

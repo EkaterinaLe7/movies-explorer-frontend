@@ -2,7 +2,7 @@ import React from "react";
 import "./MovieCardButton.css";
 import { useLocation } from "react-router-dom";
 
-function MovieCardButton({ isSaved, onSave, onDelete }) {
+function MovieCardButton({ isSaved, onSave, onSearchedCardDelete, onDelete }) {
   const location = useLocation();
 
   return (
@@ -11,7 +11,7 @@ function MovieCardButton({ isSaved, onSave, onDelete }) {
         <button
           className="card__btn card__btn_type_delete"
           type="button"
-          onClick={onSave}
+          onClick={onDelete}
         ></button>
       )}
 
@@ -21,7 +21,7 @@ function MovieCardButton({ isSaved, onSave, onDelete }) {
             <button
               className="card__btn card__btn_type_saved"
               type="button"
-              onClick={onDelete}
+              onClick={onSearchedCardDelete}
             ></button>
           ) : (
             <button
