@@ -17,7 +17,7 @@ export const ADDITIONAL_CARDS_S = 2;
 export const FILM_DURATION = 40;
 
 export const NOT_READY_STATE_TIME = 2500;
-export const INFO_POPUP_CLOSE_TIME = 3000;
+export const INFO_POPUP_CLOSE_TIME = 2000;
 export const WINDOW_RESIZE_TIME_OUT = 500;
 
 // export const ERROR_409 = "Пользователь с таким email уже существует";

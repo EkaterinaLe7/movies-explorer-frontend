@@ -29,6 +29,7 @@ function App() {
   const [infoTooltipText, setInfoTooltipText] = useState("");
   const [isLoadingSubmit, setIsLoadingSubmit] = useState(false);
   const [isLoadingProfile, setIsLoadingProfile] = useState(false);
+  const [isLoadingSavedMovies, setIsLoadingSavedMovies] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
   const [isEdit, setIsEdit] = useState(false);
   const [isAppIsNotReady, setIsAppIsNotReady] = useState(true);
@@ -73,13 +74,17 @@ function App() {
 
   useEffect(() => {
     if (loggedIn) {
+      setIsLoadingSavedMovies(true);
       api
         .getCards()
 
         .then((cards) => {
           setSavedCards(cards.reverse());
         })
-        .catch(console.error);
+        .catch(console.error)
+        .finally(() => {
+          setIsLoadingSavedMovies(false);
+        });
     }
   }, [loggedIn]);
 
@@ -235,6 +240,7 @@ function App() {
                     loggedIn={loggedIn}
                     savedCards={savedCards}
                     handleCardDelete={handleCardDelete}
+                    isLoadingSavedMovies={isLoadingSavedMovies}
                   />
                 )}
               </>

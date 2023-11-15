@@ -32,17 +32,6 @@ function Movies({
   const [isNotFound, setIsNotFound] = useState(false);
   const [isFirstSearch, setisFirstSearch] = useState(false);
 
-  function handleMoviesFilter(movies, searchText, isFilterChecked) {
-    const searchedMoviesList = searchMovies(movies, searchText);
-    setSearchedMovies(searchedMoviesList);
-    setFilteredMovies(
-      isFilterChecked ? filterMovies(searchedMoviesList) : searchedMoviesList
-    );
-
-    localStorage.setItem("searchedMovies", JSON.stringify(searchedMoviesList));
-    localStorage.setItem("searchTextQuery", searchText);
-    localStorage.setItem("filterCheck", isFilterChecked);
-  }
 
   function handleSearchMoviesSubmit(searchText) {
     const storedAllMovies = localStorage.getItem("allMovies");
@@ -71,6 +60,22 @@ function Movies({
         isFilterChecked
       );
     }
+  }
+
+  function handleMoviesFilter(movies, searchText, isFilterChecked) {
+    const searchedMoviesList = searchMovies(movies, searchText);
+    setSearchedMovies(searchedMoviesList);
+    setFilteredMovies(
+      isFilterChecked ? filterMovies(searchedMoviesList) : searchedMoviesList
+    );
+
+    localStorage.setItem("searchedMovies", JSON.stringify(searchedMoviesList));
+    localStorage.setItem("searchTextQuery", searchText);
+    localStorage.setItem("filterCheck", isFilterChecked);
+  }
+
+  function handleFilterCheck() {
+    setIsFilterChecked(!isFilterChecked);
   }
 
   useEffect(() => {
@@ -113,9 +118,7 @@ function Movies({
     localStorage.setItem("filterCheck", isFilterChecked);
   }, [isFilterChecked, searchedMovies]);
 
-  function handleFilterCheck() {
-    setIsFilterChecked(!isFilterChecked);
-  }
+
 
   useEffect(() => {
     if (localStorage.getItem("searchedMovies")) {

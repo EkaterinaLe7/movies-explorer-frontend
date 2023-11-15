@@ -4,11 +4,17 @@ import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
+import Preloader from "../Preloader/Preloader";
 import Error from "../Error/Error";
 import { searchMovies, filterMovies } from "../../utils/utils";
 import { NOT_FOUND_SEARCH_ERROR } from "../../utils/constants";
 
-function SavedMovies({ loggedIn, savedCards, handleCardDelete }) {
+function SavedMovies({
+  loggedIn,
+  savedCards,
+  handleCardDelete,
+  isLoadingSavedMovies,
+}) {
   // const [searchedMovies, setSearchedMovies] = useState([]);
   const [filteredMovies, setFilteredMovies] = useState([]);
 
@@ -55,12 +61,22 @@ function SavedMovies({ loggedIn, savedCards, handleCardDelete }) {
           onCheck={handleFilterCheck}
           searchText={searchText}
         />
-        {isNotFound && <Error text={NOT_FOUND_SEARCH_ERROR} />}
-        <MoviesCardList
-          cards={filteredMovies}
-          isSavedMoviesRoute={true}
-          onDeleteCard={handleCardDelete}
-        />
+
+        {isNotFound ? (
+          <Error text={NOT_FOUND_SEARCH_ERROR} />
+        ) : (
+          <>
+            {isLoadingSavedMovies ? (
+              <Preloader />
+            ) : (
+              <MoviesCardList
+                cards={filteredMovies}
+                isSavedMoviesRoute={true}
+                onDeleteCard={handleCardDelete}
+              />
+            )}
+          </>
+        )}
       </main>
       <Footer />
     </>
